@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Outback Sams</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      margin: 0;
+    }
+    h1 {
+      color: #00e676;
+      margin-bottom: 5px;
+    }
+    p {
+      color: #aaa;
+      margin-bottom: 20px;
+    }
+    .input-container {
+      margin-bottom: 20px;
+      display: flex;
+      gap: 10px;
+    }
+    input[type="number"] {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #333;
+      background: #222;
+      color: #fff;
+      width: 150px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      background-color: #00e676;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    /* 10-Column Grid Layout */
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 6px;
+      width: 100%;
+      max-width: 600px;
+      margin-top: 10px;
+    }
+    .grid-cell {
+      background-color: #1e1e1e;
+      border: 1px solid #333;
+      border-radius: 4px;
+      padding: 12px 0;
+      text-align: center;
+      font-size: 14px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Outback Sams</h1>
+  <p>Numerical Grid Processor</p>
+
+  <div class="input-container">
+    <input type="number" id="numInput" placeholder="Enter limit..." value="100">
+    <button onclick="generateGrid()">Generate</button>
+  </div>
+
+  <div id="grid" class="grid-container"></div>
+
+  <script>
+    function generateGrid() {
+      const grid = document.getElementById('grid');
+      const limit = parseInt(document.getElementById('numInput').value) || 100;
+      grid.innerHTML = '';
+
+      for (let i = 1; i <= limit; i++) {
+        const cell = document.createElement('div');
+        cell.className = 'grid-cell';
+        cell.textContent = i;
+        grid.appendChild(cell);
+      }
+    }
+
+    // Run grid on page load
+    generateGrid();
+  </script>
+
+</body>
+</html>
+
