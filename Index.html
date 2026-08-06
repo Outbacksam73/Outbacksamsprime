@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,7 +38,7 @@
       color: #fff;
       width: 150px;
     }
-    button {
+    button, .stripe-btn {
       padding: 10px 20px;
       font-size: 16px;
       border: none;
@@ -46,6 +47,16 @@
       color: #000;
       font-weight: bold;
       cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+    .pricing-container {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
     /* 10-Column Grid Layout */
     .grid-container {
@@ -72,9 +83,16 @@
   <h1>Outback Sams</h1>
   <p>Numerical Grid Processor</p>
 
+  <!-- STRIPE PAYMENT BUTTONS -->
+  <div class="pricing-container">
+    <a href="PASTE_YOUR_STRIPE_LINK_HERE" class="stripe-btn" target="_blank">
+      Access Full Plan ($14.99 / $0.05)
+    </a>
+  </div>
+
   <div class="input-container">
     <input type="number" id="numInput" placeholder="Enter limit..." value="100">
-    <button onclick="generateGrid()">Generate</button>
+    <button onclick="generateGrid()">Generate Grid</button>
   </div>
 
   <div id="grid" class="grid-container"></div>
