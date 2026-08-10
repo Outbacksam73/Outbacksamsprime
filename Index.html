@@ -1,1293 +1,1294 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <meta name="description" content="Outback Sams Prime Sourcing checks individual numbers and maps prime-rich ranges in a clear 10-column field grid.">
- <title>Outback Sams | Prime Sourcing</title>
- <style>
- :root {
- color-scheme: light;
- --ink: #17201c;
- --ink-soft: #4f5a53;
- --paper: #f4eddd;
- --paper-bright: #fffaf0;
- --paper-deep: #e7dcc4;
- --line: rgba(23, 32, 28, 0.18);
- --signal: #e95524;
- --signal-dark: #b93612;
- --moss: #536b4b;
- --moss-dark: #2d4033;
- --gold: #d7a62f;
- --shadow: 0 24px 60px rgba(48, 37, 20, 0.14);
- --display: "Arial Narrow", "Roboto Condensed", "Franklin Gothic Medium", sans-serif;
- --body: Georgia, "Times New Roman", serif;
- --ui: "Trebuchet MS", "Segoe UI", sans-serif;
- }
-
- * {
- box-sizing: border-box;
- }
-
- html {
- scroll-behavior: smooth;
- }
-
- body {
- margin: 0;
- min-width: 320px;
- background:
- radial-gradient(circle at 13% 8%, rgba(215, 166, 47, 0.18), transparent 26rem),
- linear-gradient(rgba(23, 32, 28, 0.025) 1px, transparent 1px),
- linear-gradient(90deg, rgba(23, 32, 28, 0.025) 1px, transparent 1px),
- var(--paper);
- background-size: auto, 32px 32px, 32px 32px, auto;
- color: var(--ink);
- font-family: var(--body);
- line-height: 1.55;
- }
-
- body::before {
- position: fixed;
- inset: 0;
- z-index: 20;
- pointer-events: none;
- content: "";
- opacity: 0.2;
- background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
- mix-blend-mode: multiply;
- }
-
- button,
- input,
- select {
- font: inherit;
- }
-
- button,
- a {
- -webkit-tap-highlight-color: transparent;
- }
-
- button:focus-visible,
- input:focus-visible,
- select:focus-visible,
- a:focus-visible {
- outline: 3px solid var(--gold);
- outline-offset: 3px;
- }
-
- .skip-link {
- position: fixed;
- top: 12px;
- left: 12px;
- z-index: 50;
- padding: 10px 14px;
- background: var(--ink);
- color: white;
- transform: translateY(-150%);
- }
-
- .skip-link:focus {
- transform: translateY(0);
- }
-
- .shell {
- width: min(1180px, calc(100% - 40px));
- margin: 0 auto;
- }
-
- .eyebrow {
- margin: 0 0 10px;
- color: var(--signal-dark);
- font-family: var(--ui);
- font-size: 0.72rem;
- font-weight: 800;
- letter-spacing: 0.18em;
- text-transform: uppercase;
- }
-
- .site-header {
- position: relative;
- z-index: 5;
- border-bottom: 1px solid var(--line);
- }
-
- .nav {
- display: flex;
- align-items: center;
- justify-content: space-between;
- min-height: 76px;
- gap: 24px;
- }
-
- .brand {
- display: inline-flex;
- align-items: center;
- gap: 11px;
- color: var(--ink);
- font-family: var(--display);
- font-size: 1.02rem;
- font-weight: 900;
- letter-spacing: 0.08em;
- text-decoration: none;
- text-transform: uppercase;
- }
-
- .brand-mark {
- display: grid;
- width: 38px;
- height: 38px;
- place-items: center;
- border: 2px solid var(--ink);
- border-radius: 50% 50% 46% 54%;
- background: var(--signal);
- color: var(--paper-bright);
- font-family: var(--body);
- font-size: 1.25rem;
- transform: rotate(-7deg);
- }
-
- .nav-links {
- display: flex;
- align-items: center;
- gap: 26px;
- font-family: var(--ui);
- font-size: 0.79rem;
- font-weight: 800;
- letter-spacing: 0.08em;
- text-transform: uppercase;
- }
-
- .nav-links a {
- color: var(--ink-soft);
- text-decoration: none;
- }
-
- .nav-links a:hover {
- color: var(--signal-dark);
- }
-
- .nav-links .nav-cta {
- padding: 9px 14px 8px;
- border: 1px solid var(--ink);
- color: var(--ink);
- box-shadow: 3px 3px 0 var(--ink);
- transition: transform 160ms ease, box-shadow 160ms ease;
- }
-
- .nav-links .nav-cta:hover {
- color: var(--ink);
- transform: translate(2px, 2px);
- box-shadow: 1px 1px 0 var(--ink);
- }
-
- .hero {
- position: relative;
- display: grid;
- grid-template-columns: minmax(0, 1.5fr) minmax(260px, 0.6fr);
- gap: clamp(42px, 8vw, 110px);
- align-items: end;
- padding: clamp(72px, 12vw, 150px) 0 88px;
- overflow: hidden;
- }
-
- .hero::after {
- position: absolute;
- right: 4%;
- bottom: 22px;
- width: 320px;
- height: 220px;
- border: 1px solid rgba(83, 107, 75, 0.25);
- border-radius: 48% 52% 62% 38% / 46% 38% 62% 54%;
- content: "";
- transform: rotate(-9deg);
- box-shadow:
- 0 0 0 24px rgba(83, 107, 75, 0.04),
- 0 0 0 52px rgba(83, 107, 75, 0.035),
- 0 0 0 86px rgba(83, 107, 75, 0.025);
- }
-
- .hero-copy,
- .field-note {
- position: relative;
- z-index: 1;
- }
-
- h1,
- h2,
- h3,
- p {
- margin-top: 0;
- }
-
- h1 {
- max-width: 820px;
- margin-bottom: 24px;
- font-family: var(--display);
- font-size: clamp(4.25rem, 11.5vw, 9.5rem);
- font-stretch: condensed;
- font-weight: 900;
- letter-spacing: -0.065em;
- line-height: 0.78;
- text-transform: uppercase;
- }
-
- h1 span {
- display: block;
- margin-left: clamp(24px, 7vw, 110px);
- color: var(--signal);
- font-family: var(--body);
- font-size: 0.5em;
- font-style: italic;
- font-weight: 700;
- letter-spacing: -0.07em;
- line-height: 1.08;
- text-transform: none;
- transform: rotate(-2deg);
- }
-
- .hero-deck {
- max-width: 620px;
- margin: 0 0 32px;
- color: var(--ink-soft);
- font-size: clamp(1rem, 2vw, 1.2rem);
- }
-
- .button-row {
- display: flex;
- flex-wrap: wrap;
- gap: 12px;
- }
-
- .button {
- display: inline-flex;
- align-items: center;
- justify-content: center;
- min-height: 48px;
- padding: 12px 20px;
- border: 1px solid var(--ink);
- border-radius: 0;
- background: var(--ink);
- color: var(--paper-bright);
- cursor: pointer;
- font-family: var(--ui);
- font-size: 0.78rem;
- font-weight: 800;
- letter-spacing: 0.08em;
- text-decoration: none;
- text-transform: uppercase;
- transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
- }
-
- .button:hover {
- transform: translateY(-2px);
- box-shadow: 0 7px 0 rgba(23, 32, 28, 0.15);
- }
-
- .button.secondary {
- background: transparent;
- color: var(--ink);
- }
-
- .button.signal {
- border-color: var(--signal-dark);
- background: var(--signal);
- color: white;
- }
-
- .field-note {
- align-self: center;
- max-width: 310px;
- margin-left: auto;
- padding: 26px 26px 22px;
- border: 1px solid var(--line);
- background: rgba(255, 250, 240, 0.72);
- box-shadow: 12px 14px 0 rgba(83, 107, 75, 0.13);
- transform: rotate(2deg);
- }
-
- .field-note::before {
- position: absolute;
- top: -15px;
- left: 45%;
- width: 66px;
- height: 24px;
- background: rgba(215, 166, 47, 0.55);
- content: "";
- transform: rotate(-4deg);
- }
-
- .field-note strong {
- display: block;
- margin-bottom: 8px;
- font-family: var(--display);
- font-size: 1.45rem;
- letter-spacing: -0.02em;
- line-height: 1;
- text-transform: uppercase;
- }
-
- .field-note p {
- margin-bottom: 0;
- color: var(--ink-soft);
- font-size: 0.94rem;
- }
-
- .workspace {
- position: relative;
- z-index: 2;
- padding: 24px 0 96px;
- }
-
- .section-heading {
- display: grid;
- grid-template-columns: minmax(0, 1fr) minmax(240px, 0.55fr);
- gap: 40px;
- align-items: end;
- margin-bottom: 30px;
- }
-
- .section-heading h2 {
- margin-bottom: 0;
- font-family: var(--display);
- font-size: clamp(2.6rem, 6vw, 5.4rem);
- font-weight: 900;
- letter-spacing: -0.045em;
- line-height: 0.9;
- text-transform: uppercase;
- }
-
- .section-heading > p {
- margin-bottom: 3px;
- color: var(--ink-soft);
- }
-
- .tool-layout {
- display: grid;
- grid-template-columns: minmax(260px, 0.7fr) minmax(0, 1.3fr);
- gap: 18px;
- align-items: stretch;
- }
-
- .panel {
- border: 1px solid var(--line);
- background: rgba(255, 250, 240, 0.74);
- box-shadow: var(--shadow);
- }
-
- .checker-panel {
- display: flex;
- flex-direction: column;
- min-height: 100%;
- padding: clamp(24px, 4vw, 42px);
- background: var(--moss-dark);
- color: var(--paper-bright);
- }
-
- .checker-panel .eyebrow {
- color: #efb34d;
- }
-
- .checker-panel h3,
- .range-panel h3 {
- margin-bottom: 12px;
- font-family: var(--display);
- font-size: clamp(1.9rem, 4vw, 3rem);
- letter-spacing: -0.035em;
- line-height: 0.95;
- text-transform: uppercase;
- }
-
- .panel-intro {
- color: rgba(255, 250, 240, 0.68);
- font-size: 0.95rem;
- }
-
- .field {
- display: grid;
- gap: 7px;
- }
-
- .field label {
- font-family: var(--ui);
- font-size: 0.71rem;
- font-weight: 800;
- letter-spacing: 0.11em;
- text-transform: uppercase;
- }
-
- .field input,
- .field select {
- width: 100%;
- min-height: 50px;
- padding: 11px 13px;
- border: 1px solid rgba(255, 250, 240, 0.35);
- border-radius: 0;
- background: rgba(255, 250, 240, 0.08);
- color: var(--paper-bright);
- }
-
- .field input::placeholder {
- color: rgba(255, 250, 240, 0.45);
- }
-
- .checker-form {
- display: grid;
- gap: 12px;
- margin: 22px 0 18px;
- }
-
- .checker-result {
- display: grid;
- min-height: 150px;
- margin-top: auto;
- padding: 24px;
- place-content: center;
- border: 1px dashed rgba(255, 250, 240, 0.3);
- text-align: center;
- }
-
- .checker-result .result-number {
- display: block;
- color: #efb34d;
- font-family: var(--display);
- font-size: clamp(3.5rem, 8vw, 6.3rem);
- font-weight: 900;
- letter-spacing: -0.06em;
- line-height: 0.85;
- }
-
- .checker-result .result-status {
- display: block;
- margin-top: 12px;
- font-family: var(--ui);
- font-size: 0.76rem;
- font-weight: 800;
- letter-spacing: 0.12em;
- text-transform: uppercase;
- }
-
- .checker-result.is-prime {
- border-style: solid;
- border-color: #efb34d;
- background: rgba(239, 179, 77, 0.08);
- }
-
- .checker-result.is-error {
- border-color: #ff9c7d;
- color: #ffb7a0;
- }
-
- .range-panel {
- padding: clamp(24px, 4vw, 42px);
- }
-
- .range-panel .panel-intro {
- color: var(--ink-soft);
- }
-
- .range-form {
- display: grid;
- grid-template-columns: 1fr 1fr;
- gap: 18px;
- margin-top: 28px;
- }
-
- .range-form .field:first-child,
- .range-actions,
- .form-message {
- grid-column: 1 / -1;
- }
-
- .range-form .field input,
- .range-form .field select {
- border-color: var(--line);
- background: var(--paper-bright);
- color: var(--ink);
- }
-
- .range-actions {
- display: flex;
- align-items: center;
- justify-content: space-between;
- gap: 18px;
- margin-top: 8px;
- }
-
- .range-tip {
- margin: 0;
- color: var(--ink-soft);
- font-size: 0.82rem;
- font-style: italic;
- }
-
- .form-message {
- min-height: 24px;
- margin: -4px 0 0;
- color: var(--signal-dark);
- font-family: var(--ui);
- font-size: 0.82rem;
- font-weight: 700;
- }
-
- .grid-panel {
- margin-top: 18px;
- padding: clamp(20px, 4vw, 38px);
- overflow: hidden;
- }
-
- .grid-toolbar {
- display: flex;
- align-items: flex-end;
- justify-content: space-between;
- gap: 24px;
- margin-bottom: 24px;
- }
-
- .grid-toolbar h3 {
- margin: 0;
- font-family: var(--display);
- font-size: clamp(1.7rem, 4vw, 2.7rem);
- letter-spacing: -0.035em;
- line-height: 1;
- text-transform: uppercase;
- }
-
- .grid-summary {
- display: flex;
- flex-wrap: wrap;
- justify-content: flex-end;
- gap: 8px;
- }
-
- .summary-chip {
- padding: 7px 10px;
- border: 1px solid var(--line);
- background: var(--paper-bright);
- font-family: var(--ui);
- font-size: 0.7rem;
- font-weight: 800;
- letter-spacing: 0.07em;
- text-transform: uppercase;
- }
-
- .summary-chip strong {
- color: var(--signal-dark);
- }
-
- .grid-scroll {
- overflow-x: auto;
- padding-bottom: 10px;
- scrollbar-color: var(--signal) var(--paper-deep);
- scrollbar-width: thin;
- }
-
- .number-grid {
- display: grid;
- grid-template-columns: repeat(10, minmax(58px, 1fr));
- gap: 7px;
- min-width: 650px;
- }
-
- .grid-cell {
- position: relative;
- display: grid;
- aspect-ratio: 1;
- place-items: center;
- border: 1px solid var(--line);
- background: rgba(255, 250, 240, 0.74);
- color: var(--ink-soft);
- font-family: var(--ui);
- font-size: clamp(0.72rem, 1.5vw, 0.9rem);
- font-weight: 700;
- animation: cell-in 260ms both;
- transition: transform 140ms ease, background 140ms ease, color 140ms ease;
- }
-
- .grid-cell:hover {
- z-index: 2;
- transform: translateY(-3px);
- }
-
- .grid-cell.prime {
- border-color: var(--moss-dark);
- background: var(--moss);
- color: white;
- font-weight: 900;
- }
-
- .grid-cell.entry::before,
- .grid-cell.exit::after {
- position: absolute;
- width: 7px;
- height: 7px;
- border-radius: 50%;
- content: "";
- }
-
- .grid-cell.entry::before {
- top: 5px;
- left: 5px;
- background: var(--gold);
- }
-
- .grid-cell.exit {
- border: 2px solid var(--signal-dark);
- background: var(--signal);
- color: white;
- font-weight: 900;
- }
-
- .grid-cell.exit::after {
- right: 4px;
- bottom: 4px;
- border: 1px solid white;
- }
-
- .legend {
- display: flex;
- flex-wrap: wrap;
- gap: 18px;
- margin-top: 18px;
- color: var(--ink-soft);
- font-family: var(--ui);
- font-size: 0.72rem;
- font-weight: 700;
- letter-spacing: 0.04em;
- text-transform: uppercase;
- }
-
- .legend span {
- display: inline-flex;
- align-items: center;
- gap: 7px;
- }
-
- .legend i {
- display: inline-block;
- width: 11px;
- height: 11px;
- border: 1px solid var(--line);
- background: var(--paper-bright);
- }
-
- .legend .prime-key {
- border-color: var(--moss);
- background: var(--moss);
- }
-
- .legend .exit-key {
- border-color: var(--signal-dark);
- background: var(--signal);
- }
-
- .pricing {
- padding: 86px 0 110px;
- border-top: 1px solid var(--line);
- }
-
- .pricing-grid {
- display: grid;
- grid-template-columns: repeat(3, 1fr);
- gap: 18px;
- margin-top: 36px;
- }
-
- .price-card {
- position: relative;
- display: flex;
- flex-direction: column;
- min-height: 410px;
- padding: 30px;
- border: 1px solid var(--line);
- background: rgba(255, 250, 240, 0.75);
- transition: transform 180ms ease, box-shadow 180ms ease;
- }
-
- .price-card:hover {
- transform: translateY(-6px) rotate(-0.35deg);
- box-shadow: var(--shadow);
- }
-
- .price-card.featured {
- border: 2px solid var(--signal-dark);
- background: var(--ink);
- color: var(--paper-bright);
- transform: rotate(0.6deg);
- }
-
- .price-card.featured:hover {
- transform: translateY(-6px) rotate(0.2deg);
- }
-
- .plan-tag {
- align-self: flex-start;
- margin-bottom: 34px;
- padding: 5px 8px;
- border: 1px solid currentColor;
- font-family: var(--ui);
- font-size: 0.67rem;
- font-weight: 800;
- letter-spacing: 0.13em;
- text-transform: uppercase;
- }
-
- .price-card h3 {
- margin-bottom: 8px;
- font-family: var(--display);
- font-size: 2rem;
- letter-spacing: -0.035em;
- line-height: 1;
- text-transform: uppercase;
- }
-
- .price {
- margin-bottom: 22px;
- font-family: var(--display);
- font-size: clamp(3.4rem, 7vw, 5.2rem);
- font-weight: 900;
- letter-spacing: -0.06em;
- line-height: 0.9;
- }
-
- .price sup {
- position: relative;
- top: -0.8em;
- font-size: 0.35em;
- letter-spacing: 0;
- }
-
- .price small {
- font-family: var(--ui);
- font-size: 0.18em;
- letter-spacing: 0.04em;
- text-transform: uppercase;
- }
-
- .plan-description {
- color: var(--ink-soft);
- font-size: 0.94rem;
- }
-
- .featured .plan-description {
- color: rgba(255, 250, 240, 0.68);
- }
-
- .plan-list {
- margin: 4px 0 28px;
- padding: 0;
- list-style: none;
- font-family: var(--ui);
- font-size: 0.84rem;
- }
-
- .plan-list li {
- padding: 8px 0;
- border-bottom: 1px solid var(--line);
- }
-
- .featured .plan-list li {
- border-color: rgba(255, 250, 240, 0.16);
- }
-
- .plan-list li::before {
- margin-right: 8px;
- color: var(--signal);
- content: "↗";
- }
-
- .price-card .button {
- width: 100%;
- margin-top: auto;
- text-align: center;
- }
-
- .featured .button {
- border-color: var(--signal);
- background: var(--signal);
- }
-
- .site-footer {
- padding: 26px 0 36px;
- border-top: 1px solid var(--line);
- color: var(--ink-soft);
- font-family: var(--ui);
- font-size: 0.76rem;
- }
-
- .footer-inner {
- display: flex;
- align-items: center;
- justify-content: space-between;
- gap: 24px;
- }
-
- .footer-inner p {
- margin: 0;
- }
-
- .toast {
- position: fixed;
- right: 22px;
- bottom: 22px;
- z-index: 30;
- max-width: min(380px, calc(100% - 44px));
- padding: 15px 18px;
- border-left: 5px solid var(--signal);
- background: var(--ink);
- color: white;
- box-shadow: var(--shadow);
- font-family: var(--ui);
- font-size: 0.86rem;
- opacity: 0;
- pointer-events: none;
- transform: translateY(18px);
- transition: opacity 180ms ease, transform 180ms ease;
- }
-
- .toast.visible {
- opacity: 1;
- transform: translateY(0);
- }
-
- @keyframes cell-in {
- from {
- opacity: 0;
- transform: scale(0.9);
- }
- }
-
- @media (max-width: 880px) {
- .hero,
- .section-heading,
- .tool-layout {
- grid-template-columns: 1fr;
- }
-
- .hero {
- gap: 52px;
- }
-
- .field-note {
- margin-right: 8%;
- margin-left: auto;
- }
-
- .pricing-grid {
- grid-template-columns: 1fr;
- }
-
- .price-card {
- min-height: auto;
- }
-
- .price-card.featured {
- transform: none;
- }
- }
-
- @media (max-width: 640px) {
- .shell {
- width: min(100% - 24px, 1180px);
- }
-
- .nav {
- min-height: 66px;
- }
-
- .nav-links a:not(.nav-cta) {
- display: none;
- }
-
- .brand {
- font-size: 0.86rem;
- }
-
- .brand-mark {
- width: 34px;
- height: 34px;
- }
-
- .hero {
- padding-top: 76px;
- padding-bottom: 64px;
- }
-
- h1 {
- font-size: clamp(3.7rem, 23vw, 6.2rem);
- }
-
- .field-note {
- margin-right: 0;
- }
-
- .range-form {
- grid-template-columns: 1fr;
- }
-
- .range-actions,
- .grid-toolbar,
- .footer-inner {
- align-items: stretch;
- flex-direction: column;
- }
-
- .range-actions .button {
- width: 100%;
- }
-
- .grid-summary {
- justify-content: flex-start;
- }
-
- .pricing {
- padding-bottom: 76px;
- }
- }
-
- @media (prefers-reduced-motion: reduce) {
- *,
- *::before,
- *::after {
- scroll-behavior: auto !important;
- animation-duration: 0.01ms !important;
- animation-iteration-count: 1 !important;
- transition-duration: 0.01ms !important;
- }
- }
- </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Outback Sams Prime Sourcing checks individual numbers and maps prime-rich ranges in a clear 10-column field grid.">
+  <title>Outback Sams | Prime Sourcing</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17201c;
+      --ink-soft: #4f5a53;
+      --paper: #f4eddd;
+      --paper-bright: #fffaf0;
+      --paper-deep: #e7dcc4;
+      --line: rgba(23, 32, 28, 0.18);
+      --signal: #e95524;
+      --signal-dark: #b93612;
+      --moss: #536b4b;
+      --moss-dark: #2d4033;
+      --gold: #d7a62f;
+      --shadow: 0 24px 60px rgba(48, 37, 20, 0.14);
+      --display: "Arial Narrow", "Roboto Condensed", "Franklin Gothic Medium", sans-serif;
+      --body: Georgia, "Times New Roman", serif;
+      --ui: "Trebuchet MS", "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background:
+        radial-gradient(circle at 13% 8%, rgba(215, 166, 47, 0.18), transparent 26rem),
+        linear-gradient(rgba(23, 32, 28, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(23, 32, 28, 0.025) 1px, transparent 1px),
+        var(--paper);
+      background-size: auto, 32px 32px, 32px 32px, auto;
+      color: var(--ink);
+      font-family: var(--body);
+      line-height: 1.55;
+    }
+
+    body::before {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      pointer-events: none;
+      content: "";
+      opacity: 0.2;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+      mix-blend-mode: multiply;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    a:focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 3px;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 50;
+      padding: 10px 14px;
+      background: var(--ink);
+      color: white;
+      transform: translateY(-150%);
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .shell {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--signal-dark);
+      font-family: var(--ui);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .site-header {
+      position: relative;
+      z-index: 5;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 76px;
+      gap: 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      color: var(--ink);
+      font-family: var(--display);
+      font-size: 1.02rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border: 2px solid var(--ink);
+      border-radius: 50% 50% 46% 54%;
+      background: var(--signal);
+      color: var(--paper-bright);
+      font-family: var(--body);
+      font-size: 1.25rem;
+      transform: rotate(-7deg);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      font-family: var(--ui);
+      font-size: 0.79rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .nav-links a {
+      color: var(--ink-soft);
+      text-decoration: none;
+    }
+
+    .nav-links a:hover {
+      color: var(--signal-dark);
+    }
+
+    .nav-links .nav-cta {
+      padding: 9px 14px 8px;
+      border: 1px solid var(--ink);
+      color: var(--ink);
+      box-shadow: 3px 3px 0 var(--ink);
+      transition: transform 160ms ease, box-shadow 160ms ease;
+    }
+
+    .nav-links .nav-cta:hover {
+      color: var(--ink);
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 var(--ink);
+    }
+
+    .hero {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(260px, 0.6fr);
+      gap: clamp(42px, 8vw, 110px);
+      align-items: end;
+      padding: clamp(72px, 12vw, 150px) 0 88px;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      position: absolute;
+      right: 4%;
+      bottom: 22px;
+      width: 320px;
+      height: 220px;
+      border: 1px solid rgba(83, 107, 75, 0.25);
+      border-radius: 48% 52% 62% 38% / 46% 38% 62% 54%;
+      content: "";
+      transform: rotate(-9deg);
+      box-shadow:
+        0 0 0 24px rgba(83, 107, 75, 0.04),
+        0 0 0 52px rgba(83, 107, 75, 0.035),
+        0 0 0 86px rgba(83, 107, 75, 0.025);
+    }
+
+    .hero-copy,
+    .field-note {
+      position: relative;
+      z-index: 1;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      max-width: 820px;
+      margin-bottom: 24px;
+      font-family: var(--display);
+      font-size: clamp(4.25rem, 11.5vw, 9.5rem);
+      font-stretch: condensed;
+      font-weight: 900;
+      letter-spacing: -0.065em;
+      line-height: 0.78;
+      text-transform: uppercase;
+    }
+
+    h1 span {
+      display: block;
+      margin-left: clamp(24px, 7vw, 110px);
+      color: var(--signal);
+      font-family: var(--body);
+      font-size: 0.5em;
+      font-style: italic;
+      font-weight: 700;
+      letter-spacing: -0.07em;
+      line-height: 1.08;
+      text-transform: none;
+      transform: rotate(-2deg);
+    }
+
+    .hero-deck {
+      max-width: 620px;
+      margin: 0 0 32px;
+      color: var(--ink-soft);
+      font-size: clamp(1rem, 2vw, 1.2rem);
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 12px 20px;
+      border: 1px solid var(--ink);
+      border-radius: 0;
+      background: var(--ink);
+      color: var(--paper-bright);
+      cursor: pointer;
+      font-family: var(--ui);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 0 rgba(23, 32, 28, 0.15);
+    }
+
+    .button.secondary {
+      background: transparent;
+      color: var(--ink);
+    }
+
+    .button.signal {
+      border-color: var(--signal-dark);
+      background: var(--signal);
+      color: white;
+    }
+
+    .field-note {
+      align-self: center;
+      max-width: 310px;
+      margin-left: auto;
+      padding: 26px 26px 22px;
+      border: 1px solid var(--line);
+      background: rgba(255, 250, 240, 0.72);
+      box-shadow: 12px 14px 0 rgba(83, 107, 75, 0.13);
+      transform: rotate(2deg);
+    }
+
+    .field-note::before {
+      position: absolute;
+      top: -15px;
+      left: 45%;
+      width: 66px;
+      height: 24px;
+      background: rgba(215, 166, 47, 0.55);
+      content: "";
+      transform: rotate(-4deg);
+    }
+
+    .field-note strong {
+      display: block;
+      margin-bottom: 8px;
+      font-family: var(--display);
+      font-size: 1.45rem;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .field-note p {
+      margin-bottom: 0;
+      color: var(--ink-soft);
+      font-size: 0.94rem;
+    }
+
+    .workspace {
+      position: relative;
+      z-index: 2;
+      padding: 24px 0 96px;
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(240px, 0.55fr);
+      gap: 40px;
+      align-items: end;
+      margin-bottom: 30px;
+    }
+
+    .section-heading h2 {
+      margin-bottom: 0;
+      font-family: var(--display);
+      font-size: clamp(2.6rem, 6vw, 5.4rem);
+      font-weight: 900;
+      letter-spacing: -0.045em;
+      line-height: 0.9;
+      text-transform: uppercase;
+    }
+
+    .section-heading > p {
+      margin-bottom: 3px;
+      color: var(--ink-soft);
+    }
+
+    .tool-layout {
+      display: grid;
+      grid-template-columns: minmax(260px, 0.7fr) minmax(0, 1.3fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      background: rgba(255, 250, 240, 0.74);
+      box-shadow: var(--shadow);
+    }
+
+    .checker-panel {
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+      padding: clamp(24px, 4vw, 42px);
+      background: var(--moss-dark);
+      color: var(--paper-bright);
+    }
+
+    .checker-panel .eyebrow {
+      color: #efb34d;
+    }
+
+    .checker-panel h3,
+    .range-panel h3 {
+      margin-bottom: 12px;
+      font-family: var(--display);
+      font-size: clamp(1.9rem, 4vw, 3rem);
+      letter-spacing: -0.035em;
+      line-height: 0.95;
+      text-transform: uppercase;
+    }
+
+    .panel-intro {
+      color: rgba(255, 250, 240, 0.68);
+      font-size: 0.95rem;
+    }
+
+    .field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .field label {
+      font-family: var(--ui);
+      font-size: 0.71rem;
+      font-weight: 800;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      min-height: 50px;
+      padding: 11px 13px;
+      border: 1px solid rgba(255, 250, 240, 0.35);
+      border-radius: 0;
+      background: rgba(255, 250, 240, 0.08);
+      color: var(--paper-bright);
+    }
+
+    .field input::placeholder {
+      color: rgba(255, 250, 240, 0.45);
+    }
+
+    .checker-form {
+      display: grid;
+      gap: 12px;
+      margin: 22px 0 18px;
+    }
+
+    .checker-result {
+      display: grid;
+      min-height: 150px;
+      margin-top: auto;
+      padding: 24px;
+      place-content: center;
+      border: 1px dashed rgba(255, 250, 240, 0.3);
+      text-align: center;
+    }
+
+    .checker-result .result-number {
+      display: block;
+      color: #efb34d;
+      font-family: var(--display);
+      font-size: clamp(3.5rem, 8vw, 6.3rem);
+      font-weight: 900;
+      letter-spacing: -0.06em;
+      line-height: 0.85;
+    }
+
+    .checker-result .result-status {
+      display: block;
+      margin-top: 12px;
+      font-family: var(--ui);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .checker-result.is-prime {
+      border-style: solid;
+      border-color: #efb34d;
+      background: rgba(239, 179, 77, 0.08);
+    }
+
+    .checker-result.is-error {
+      border-color: #ff9c7d;
+      color: #ffb7a0;
+    }
+
+    .range-panel {
+      padding: clamp(24px, 4vw, 42px);
+    }
+
+    .range-panel .panel-intro {
+      color: var(--ink-soft);
+    }
+
+    .range-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 28px;
+    }
+
+    .range-form .field:first-child,
+    .range-actions,
+    .form-message {
+      grid-column: 1 / -1;
+    }
+
+    .range-form .field input,
+    .range-form .field select {
+      border-color: var(--line);
+      background: var(--paper-bright);
+      color: var(--ink);
+    }
+
+    .range-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-top: 8px;
+    }
+
+    .range-tip {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: 0.82rem;
+      font-style: italic;
+    }
+
+    .form-message {
+      min-height: 24px;
+      margin: -4px 0 0;
+      color: var(--signal-dark);
+      font-family: var(--ui);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .grid-panel {
+      margin-top: 18px;
+      padding: clamp(20px, 4vw, 38px);
+      overflow: hidden;
+    }
+
+    .grid-toolbar {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .grid-toolbar h3 {
+      margin: 0;
+      font-family: var(--display);
+      font-size: clamp(1.7rem, 4vw, 2.7rem);
+      letter-spacing: -0.035em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .grid-summary {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .summary-chip {
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      background: var(--paper-bright);
+      font-family: var(--ui);
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .summary-chip strong {
+      color: var(--signal-dark);
+    }
+
+    .grid-scroll {
+      overflow-x: auto;
+      padding-bottom: 10px;
+      scrollbar-color: var(--signal) var(--paper-deep);
+      scrollbar-width: thin;
+    }
+
+    .number-grid {
+      display: grid;
+      grid-template-columns: repeat(10, minmax(58px, 1fr));
+      gap: 7px;
+      min-width: 650px;
+    }
+
+    .grid-cell {
+      position: relative;
+      display: grid;
+      aspect-ratio: 1;
+      place-items: center;
+      border: 1px solid var(--line);
+      background: rgba(255, 250, 240, 0.74);
+      color: var(--ink-soft);
+      font-family: var(--ui);
+      font-size: clamp(0.72rem, 1.5vw, 0.9rem);
+      font-weight: 700;
+      animation: cell-in 260ms both;
+      transition: transform 140ms ease, background 140ms ease, color 140ms ease;
+    }
+
+    .grid-cell:hover {
+      z-index: 2;
+      transform: translateY(-3px);
+    }
+
+    .grid-cell.prime {
+      border-color: var(--moss-dark);
+      background: var(--moss);
+      color: white;
+      font-weight: 900;
+    }
+
+    .grid-cell.entry::before,
+    .grid-cell.exit::after {
+      position: absolute;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      content: "";
+    }
+
+    .grid-cell.entry::before {
+      top: 5px;
+      left: 5px;
+      background: var(--gold);
+    }
+
+    .grid-cell.exit {
+      border: 2px solid var(--signal-dark);
+      background: var(--signal);
+      color: white;
+      font-weight: 900;
+    }
+
+    .grid-cell.exit::after {
+      right: 4px;
+      bottom: 4px;
+      border: 1px solid white;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      margin-top: 18px;
+      color: var(--ink-soft);
+      font-family: var(--ui);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .legend i {
+      display: inline-block;
+      width: 11px;
+      height: 11px;
+      border: 1px solid var(--line);
+      background: var(--paper-bright);
+    }
+
+    .legend .prime-key {
+      border-color: var(--moss);
+      background: var(--moss);
+    }
+
+    .legend .exit-key {
+      border-color: var(--signal-dark);
+      background: var(--signal);
+    }
+
+    .pricing {
+      padding: 86px 0 110px;
+      border-top: 1px solid var(--line);
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 36px;
+    }
+
+    .price-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 410px;
+      padding: 30px;
+      border: 1px solid var(--line);
+      background: rgba(255, 250, 240, 0.75);
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .price-card:hover {
+      transform: translateY(-6px) rotate(-0.35deg);
+      box-shadow: var(--shadow);
+    }
+
+    .price-card.featured {
+      border: 2px solid var(--signal-dark);
+      background: var(--ink);
+      color: var(--paper-bright);
+      transform: rotate(0.6deg);
+    }
+
+    .price-card.featured:hover {
+      transform: translateY(-6px) rotate(0.2deg);
+    }
+
+    .plan-tag {
+      align-self: flex-start;
+      margin-bottom: 34px;
+      padding: 5px 8px;
+      border: 1px solid currentColor;
+      font-family: var(--ui);
+      font-size: 0.67rem;
+      font-weight: 800;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .price-card h3 {
+      margin-bottom: 8px;
+      font-family: var(--display);
+      font-size: 2rem;
+      letter-spacing: -0.035em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .price {
+      margin-bottom: 22px;
+      font-family: var(--display);
+      font-size: clamp(3.4rem, 7vw, 5.2rem);
+      font-weight: 900;
+      letter-spacing: -0.06em;
+      line-height: 0.9;
+    }
+
+    .price sup {
+      position: relative;
+      top: -0.8em;
+      font-size: 0.35em;
+      letter-spacing: 0;
+    }
+
+    .price small {
+      font-family: var(--ui);
+      font-size: 0.18em;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .plan-description {
+      color: var(--ink-soft);
+      font-size: 0.94rem;
+    }
+
+    .featured .plan-description {
+      color: rgba(255, 250, 240, 0.68);
+    }
+
+    .plan-list {
+      margin: 4px 0 28px;
+      padding: 0;
+      list-style: none;
+      font-family: var(--ui);
+      font-size: 0.84rem;
+    }
+
+    .plan-list li {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .featured .plan-list li {
+      border-color: rgba(255, 250, 240, 0.16);
+    }
+
+    .plan-list li::before {
+      margin-right: 8px;
+      color: var(--signal);
+      content: "↗";
+    }
+
+    .price-card .button {
+      width: 100%;
+      margin-top: auto;
+      text-align: center;
+    }
+
+    .featured .button {
+      border-color: var(--signal);
+      background: var(--signal);
+    }
+
+    .site-footer {
+      padding: 26px 0 36px;
+      border-top: 1px solid var(--line);
+      color: var(--ink-soft);
+      font-family: var(--ui);
+      font-size: 0.76rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .footer-inner p {
+      margin: 0;
+    }
+
+    .toast {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 30;
+      max-width: min(380px, calc(100% - 44px));
+      padding: 15px 18px;
+      border-left: 5px solid var(--signal);
+      background: var(--ink);
+      color: white;
+      box-shadow: var(--shadow);
+      font-family: var(--ui);
+      font-size: 0.86rem;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(18px);
+      transition: opacity 180ms ease, transform 180ms ease;
+    }
+
+    .toast.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes cell-in {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+    }
+
+    @media (max-width: 880px) {
+      .hero,
+      .section-heading,
+      .tool-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        gap: 52px;
+      }
+
+      .field-note {
+        margin-right: 8%;
+        margin-left: auto;
+      }
+
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .price-card {
+        min-height: auto;
+      }
+
+      .price-card.featured {
+        transform: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .shell {
+        width: min(100% - 24px, 1180px);
+      }
+
+      .nav {
+        min-height: 66px;
+      }
+
+      .nav-links a:not(.nav-cta) {
+        display: none;
+      }
+
+      .brand {
+        font-size: 0.86rem;
+      }
+
+      .brand-mark {
+        width: 34px;
+        height: 34px;
+      }
+
+      .hero {
+        padding-top: 76px;
+        padding-bottom: 64px;
+      }
+
+      h1 {
+        font-size: clamp(3.7rem, 23vw, 6.2rem);
+      }
+
+      .field-note {
+        margin-right: 0;
+      }
+
+      .range-form {
+        grid-template-columns: 1fr;
+      }
+
+      .range-actions,
+      .grid-toolbar,
+      .footer-inner {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .range-actions .button {
+        width: 100%;
+      }
+
+      .grid-summary {
+        justify-content: flex-start;
+      }
+
+      .pricing {
+        padding-bottom: 76px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
 </head>
 <body>
- <a class="skip-link" href="#tools">Skip to sourcing tools</a>
+  <a class="skip-link" href="#tools">Skip to sourcing tools</a>
 
- <header class="site-header">
- <nav class="nav shell" aria-label="Main navigation">
- <a class="brand" href="#top" aria-label="Outback Sams home">
- <span class="brand-mark" aria-hidden="true">S</span>
- Outback Sams
- </a>
- <div class="nav-links">
- <a href="#tools">Sourcing Tools</a>
- <a href="#pricing">Pricing</a>
- <a class="nav-cta" href="#tools">Open Grid</a>
- </div>
- </nav>
- </header>
+  <header class="site-header">
+    <nav class="nav shell" aria-label="Main navigation">
+      <a class="brand" href="#top" aria-label="Outback Sams home">
+        <span class="brand-mark" aria-hidden="true">S</span>
+        Outback Sams
+      </a>
+      <div class="nav-links">
+        <a href="#tools">Sourcing Tools</a>
+        <a href="#pricing">Pricing</a>
+        <a class="nav-cta" href="#tools">Open Grid</a>
+      </div>
+    </nav>
+  </header>
 
- <main id="top">
- <section class="hero shell" aria-labelledby="hero-title">
- <div class="hero-copy">
- <p class="eyebrow">Prime intelligence for clear decisions</p>
- <h1 id="hero-title">Find the rare <span>in every range.</span></h1>
- <p class="hero-deck">Check one number or chart an entire boundary. Outback Sams turns dense numerical ground into a clean, readable prime-sourcing map.</p>
- <div class="button-row">
- <a class="button signal" href="#tools">Start sourcing</a>
- <a class="button secondary" href="#pricing">View field plans</a>
- </div>
- </div>
- <aside class="field-note" aria-label="Field note">
- <p class="eyebrow">Field note 01</p>
- <strong>One visible map. Zero clutter.</strong>
- <p>The sourcing engine works quietly behind a familiar 10-column field grid, so patterns stay easy to scan.</p>
- </aside>
- </section>
+  <main id="top">
+    <section class="hero shell" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Prime intelligence for clear decisions</p>
+        <h1 id="hero-title">Find the rare <span>in every range.</span></h1>
+        <p class="hero-deck">Check one number or chart an entire boundary. Outback Sams turns dense numerical ground into a clean, readable prime-sourcing map.</p>
+        <div class="button-row">
+          <a class="button signal" href="#tools">Start sourcing</a>
+          <a class="button secondary" href="#pricing">View field plans</a>
+        </div>
+      </div>
+      <aside class="field-note" aria-label="Field note">
+        <p class="eyebrow">Field note 01</p>
+        <strong>One visible map. Zero clutter.</strong>
+        <p>The sourcing engine works quietly behind a familiar 10-column field grid, so patterns stay easy to scan.</p>
+      </aside>
+    </section>
 
- <section class="workspace shell" id="tools" aria-labelledby="tools-title">
- <div class="section-heading">
- <div>
- <p class="eyebrow">Sourcing station</p>
- <h2 id="tools-title">Check a point.<br>Map the ground.</h2>
- </div>
- <p>Use the quick checker for a single integer, or set entry and Indiana exit points to reveal every prime across the selected boundary.</p>
- </div>
+    <section class="workspace shell" id="tools" aria-labelledby="tools-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Sourcing station</p>
+          <h2 id="tools-title">Check a point.<br>Map the ground.</h2>
+        </div>
+        <p>Use the quick checker for a single integer, or set entry and Indiana exit points to reveal every prime across the selected boundary.</p>
+      </div>
 
- <div class="tool-layout">
- <article class="panel checker-panel">
- <p class="eyebrow">01 / Quick check</p>
- <h3>Single-number checker</h3>
- <p class="panel-intro">Drop in any positive whole number and get an immediate classification.</p>
- <form class="checker-form" id="checkerForm" novalidate>
- <div class="field">
- <label for="singleNumber">Number to check</label>
- <input id="singleNumber" name="singleNumber" type="number" min="1" step="1" inputmode="numeric" placeholder="Try 97" required>
- </div>
- <button class="button signal" type="submit">Check number</button>
- </form>
- <div class="checker-result" id="checkerResult" role="status" aria-live="polite">
- <span class="result-status">Awaiting a number</span>
- </div>
- </article>
+      <div class="tool-layout">
+        <article class="panel checker-panel">
+          <p class="eyebrow">01 / Quick check</p>
+          <h3>Single-number checker</h3>
+          <p class="panel-intro">Drop in any positive whole number and get an immediate classification.</p>
+          <form class="checker-form" id="checkerForm" novalidate>
+            <div class="field">
+              <label for="singleNumber">Number to check</label>
+              <input id="singleNumber" name="singleNumber" type="number" min="1" step="1" inputmode="numeric" placeholder="Try 97" required>
+            </div>
+            <button class="button signal" type="submit">Check number</button>
+          </form>
+          <div class="checker-result" id="checkerResult" role="status" aria-live="polite">
+            <span class="result-status">Awaiting a number</span>
+          </div>
+        </article>
 
- <article class="panel range-panel">
- <p class="eyebrow">02 / Boundary map</p>
- <h3>Entry / Indiana exit processor</h3>
- <p class="panel-intro">Define the ground to cover. The front-end map always renders in ten clear columns.</p>
- <form class="range-form" id="rangeForm" novalidate>
- <div class="field">
- <label for="rangePreset">Quick boundary</label>
- <select id="rangePreset" name="rangePreset">
- <option value="1:100">Survey 1–100</option>
- <option value="2:300">Deep scan 2–300</option>
- <option value="100:500">Extended 100–500</option>
- <option value="custom">Custom points</option>
- </select>
- </div>
- <div class="field">
- <label for="entryPoint">Entry point</label>
- <input id="entryPoint" name="entryPoint" type="number" min="1" max="1000000" step="1" inputmode="numeric" value="1" required>
- </div>
- <div class="field">
- <label for="exitPoint">Indiana exit point</label>
- <input id="exitPoint" name="exitPoint" type="number" min="1" max="1000000" step="1" inputmode="numeric" value="100" required>
- </div>
- <div class="range-actions">
- <p class="range-tip">Up to 5,000 numbers per field map.</p>
- <button class="button" type="submit">Process boundary</button>
- </div>
- <p class="form-message" id="rangeMessage" role="alert" aria-live="assertive"></p>
- </form>
- </article>
- </div>
+        <article class="panel range-panel">
+          <p class="eyebrow">02 / Boundary map</p>
+          <h3>Entry / Indiana exit processor</h3>
+          <p class="panel-intro">Define the ground to cover. The front-end map always renders in ten clear columns.</p>
+          <form class="range-form" id="rangeForm" novalidate>
+            <div class="field">
+              <label for="rangePreset">Quick boundary</label>
+              <select id="rangePreset" name="rangePreset">
+                <option value="1:100">Survey 1–100</option>
+                <option value="2:300">Deep scan 2–300</option>
+                <option value="100:500">Extended 100–500</option>
+                <option value="custom">Custom points</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="entryPoint">Entry point</label>
+              <input id="entryPoint" name="entryPoint" type="number" min="1" max="1000000" step="1" inputmode="numeric" value="1" required>
+            </div>
+            <div class="field">
+              <label for="exitPoint">Indiana exit point</label>
+              <input id="exitPoint" name="exitPoint" type="number" min="1" max="1000000" step="1" inputmode="numeric" value="100" required>
+            </div>
+            <div class="range-actions">
+              <p class="range-tip">Up to 5,000 numbers per field map.</p>
+              <button class="button" type="submit">Process boundary</button>
+            </div>
+            <p class="form-message" id="rangeMessage" role="alert" aria-live="assertive"></p>
+          </form>
+        </article>
+      </div>
 
- <article class="panel grid-panel" aria-labelledby="grid-title">
- <div class="grid-toolbar">
- <div>
- <p class="eyebrow">03 / Visual field</p>
- <h3 id="grid-title">10-column sourcing grid</h3>
- </div>
- <div class="grid-summary" id="gridSummary" aria-live="polite"></div>
- </div>
- <div class="grid-scroll" tabindex="0" aria-label="Scrollable prime number grid">
- <div class="number-grid" id="numberGrid"></div>
- </div>
- <div class="legend" aria-label="Grid legend">
- <span><i class="prime-key" aria-hidden="true"></i> Prime source</span>
- <span><i aria-hidden="true"></i> Non-prime</span>
- <span><i class="exit-key" aria-hidden="true"></i> Indiana exit</span>
- </div>
- </article>
- </section>
+      <article class="panel grid-panel" aria-labelledby="grid-title">
+        <div class="grid-toolbar">
+          <div>
+            <p class="eyebrow">03 / Visual field</p>
+            <h3 id="grid-title">10-column sourcing grid</h3>
+          </div>
+          <div class="grid-summary" id="gridSummary" aria-live="polite"></div>
+        </div>
+        <div class="grid-scroll" tabindex="0" aria-label="Scrollable prime number grid">
+          <div class="number-grid" id="numberGrid"></div>
+        </div>
+        <div class="legend" aria-label="Grid legend">
+          <span><i class="prime-key" aria-hidden="true"></i> Prime source</span>
+          <span><i aria-hidden="true"></i> Non-prime</span>
+          <span><i class="exit-key" aria-hidden="true"></i> Indiana exit</span>
+        </div>
+      </article>
+    </section>
 
- <section class="pricing" id="pricing" aria-labelledby="pricing-title">
- <div class="shell">
- <div class="section-heading">
- <div>
- <p class="eyebrow">Field plans</p>
- <h2 id="pricing-title">Source your way.</h2>
- </div>
- <p>Start with a short survey, buy only the checks you need, or keep unlimited access open for ongoing sourcing.</p>
- </div>
+    <section class="pricing" id="pricing" aria-labelledby="pricing-title">
+      <div class="shell">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Field plans</p>
+            <h2 id="pricing-title">Source your way.</h2>
+          </div>
+          <p>Start with a short survey, buy only the checks you need, or keep unlimited access open for ongoing sourcing.</p>
+        </div>
 
- <div class="pricing-grid">
- <article class="price-card">
- <span class="plan-tag">First look</span>
- <h3>3-day trial</h3>
- <p class="price"><sup>$</sup>0</p>
- <p class="plan-description">A no-cost field test with full access for three days.</p>
- <ul class="plan-list">
- <li>Single-number checks</li>
- <li>Boundary processing</li>
- <li>10-column visual grid</li>
- </ul>
- <a class="button" href="https://buy.stripe.com/3cIeVe83V6zCbabbnT0Ba07"_blank" rel="noopener">Start free trial</a>
-href=https://buy.stripe.com/aFa00k0BtgacbabeA50Ba06"href=https://buy.stripe.com/bJe5kEfwn5vy0vx4Zv0Ba05"</article>
+        <div class="pricing-grid">
+          <article class="price-card">
+            <span class="plan-tag">First look</span>
+            <h3>3-day trial</h3>
+            <p class="price"><sup>$</sup>0</p>
+            <p class="plan-description">A no-cost field test with full access for three days.</p>
+            <ul class="plan-list">
+              <li>Single-number checks</li>
+              <li>Boundary processing</li>
+              <li>10-column visual grid</li>
+            </ul>
+            <a class="button" href="https://buy.stripe.com/3cIeVe83V6zCbabbnT0Ba07" target="_blank" rel="noopener">Start free trial</a>
+          </article>
 
- <article class="price-card">
- <span class="plan-tag">Pay as you go</span>
- <h3>5-pass token</h3>
- <p class="price"><sup>$</sup>5</p>
- <p class="plan-description">Five complete sourcing sessions, ready whenever you are.</p>
- <ul class="plan-list">
- <li>No recurring charge</li>
- <li>Five full field maps</li>
- <li>Use passes anytime</li>
- </ul>
- <a class="button secondary" href="https://buy.stripe.com/7sYcN6gAr9LO923bnT0Ba04" target="_blank" rel="noopener">Choose 5-pass</a>
- </article>
+          <article class="price-card">
+            <span class="plan-tag">Pay as you go</span>
+            <h3>5-pass token</h3>
+            <p class="price"><sup>$</sup>5</p>
+            <p class="plan-description">Five complete sourcing sessions, ready whenever you are.</p>
+            <ul class="plan-list">
+              <li>No recurring charge</li>
+              <li>Five full field maps</li>
+              <li>Use passes anytime</li>
+            </ul>
+            <a class="button secondary" href="https://buy.stripe.com/7sYcN6gAr9LO923bnT0Ba04" target="_blank" rel="noopener">Choose 5-pass</a>
+          </article>
 
- <article class="price-card featured">
- <span class="plan-tag">Best for regulars</span>
- <h3>Pro Unlimited</h3>
- <p class="price"><sup>$</sup>14.99<small>/mo</small></p>
- <p class="plan-description">Unlimited sourcing for active operators and repeat fieldwork.</p>
- <ul class="plan-list">
- <li>Unlimited number checks</li>
- <li>Unlimited boundary maps</li>
- <li>Priority feature access</li>
- </ul>
- <a class="button" href="https://buy.stripe.com/7sYcN6gAr9LO923bnT0Ba04" target="_blank" rel="noopener">Go unlimited</a>
- </article>
- </div>
- </div>
- </section>
- </main>
+          <article class="price-card featured">
+            <span class="plan-tag">Best for regulars</span>
+            <h3>Pro Unlimited</h3>
+            <p class="price"><sup>$</sup>14.99<small>/mo</small></p>
+            <p class="plan-description">Unlimited sourcing for active operators and repeat fieldwork.</p>
+            <ul class="plan-list">
+              <li>Unlimited number checks</li>
+              <li>Unlimited boundary maps</li>
+              <li>Priority feature access</li>
+            </ul>
+            <a class="button" href="https://buy.stripe.com/7sYcN6gAr9LO923bnT0Ba04" target="_blank" rel="noopener">Go unlimited</a>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
 
- <footer class="site-footer">
- <div class="footer-inner shell">
- <p><strong>Outback Sams</strong> — prime sourcing, plainly mapped.</p>
- <p>Browser-based · No installation required</p>
- </div>
- </footer>
+  <footer class="site-footer">
+    <div class="footer-inner shell">
+      <p><strong>Outback Sams</strong> — prime sourcing, plainly mapped.</p>
+      <p>Browser-based · No installation required</p>
+    </div>
+  </footer>
 
- <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
- <script>
- (() => {
- "use strict";
+  <script>
+    (() => {
+      "use strict";
 
- const MAX_RANGE_SIZE = 5000;
- const elements = {
- checkerForm: document.querySelector("#checkerForm"),
- singleNumber: document.querySelector("#singleNumber"),
- checkerResult: document.querySelector("#checkerResult"),
- rangeForm: document.querySelector("#rangeForm"),
- rangePreset: document.querySelector("#rangePreset"),
- entryPoint: document.querySelector("#entryPoint"),
- exitPoint: document.querySelector("#exitPoint"),
- rangeMessage: document.querySelector("#rangeMessage"),
- numberGrid: document.querySelector("#numberGrid"),
- gridSummary: document.querySelector("#gridSummary"),
- toast: document.querySelector("#toast")
- };
+      const MAX_RANGE_SIZE = 5000;
+      const elements = {
+        checkerForm: document.querySelector("#checkerForm"),
+        singleNumber: document.querySelector("#singleNumber"),
+        checkerResult: document.querySelector("#checkerResult"),
+        rangeForm: document.querySelector("#rangeForm"),
+        rangePreset: document.querySelector("#rangePreset"),
+        entryPoint: document.querySelector("#entryPoint"),
+        exitPoint: document.querySelector("#exitPoint"),
+        rangeMessage: document.querySelector("#rangeMessage"),
+        numberGrid: document.querySelector("#numberGrid"),
+        gridSummary: document.querySelector("#gridSummary"),
+        toast: document.querySelector("#toast")
+      };
 
- const sourcingEngine = (() => {
- const isPrime = (number) => {
- if (number < 2) return false;
- if (number === 2 || number === 3) return true;
- if (number % 2 === 0 || number % 3 === 0) return false;
+      const sourcingEngine = (() => {
+        const isPrime = (number) => {
+          if (number < 2) return false;
+          if (number === 2 || number === 3) return true;
+          if (number % 2 === 0 || number % 3 === 0) return false;
 
- for (let divisor = 5; divisor * divisor <= number; divisor += 6) {
- if (number % divisor === 0 || number % (divisor + 2) === 0) return false;
- }
+          for (let divisor = 5; divisor * divisor <= number; divisor += 6) {
+            if (number % divisor === 0 || number % (divisor + 2) === 0) return false;
+          }
 
- return true;
- };
+          return true;
+        };
 
- const sourceNumber = (number) => {
- const internalColumn = ((number - 1) % 7) + 1;
- const internalRow = Math.floor((number - 1) / 7);
- void internalColumn;
- void internalRow;
- return { number, isPrime: isPrime(number) };
- };
+        const sourceNumber = (number) => {
+          const internalColumn = ((number - 1) % 7) + 1;
+          const internalRow = Math.floor((number - 1) / 7);
+          void internalColumn;
+          void internalRow;
+          return { number, isPrime: isPrime(number) };
+        };
 
- const sourceBoundary = (entry, exit) => {
- const results = [];
- for (let number = entry; number <= exit; number += 1) {
- results.push(sourceNumber(number));
- }
- return results;
- };
+        const sourceBoundary = (entry, exit) => {
+          const results = [];
+          for (let number = entry; number <= exit; number += 1) {
+            results.push(sourceNumber(number));
+          }
+          return results;
+        };
 
- return { sourceNumber, sourceBoundary };
- })();
+        return { sourceNumber, sourceBoundary };
+      })();
 
- const parsePositiveInteger = (value) => {
- const number = Number(value);
- return Number.isSafeInteger(number) && number > 0 ? number : null;
- };
+      const parsePositiveInteger = (value) => {
+        const number = Number(value);
+        return Number.isSafeInteger(number) && number > 0 ? number : null;
+      };
 
- const checkSingleNumber = () => {
- const number = parsePositiveInteger(elements.singleNumber.value);
- elements.checkerResult.className = "checker-result";
+      const checkSingleNumber = () => {
+        const number = parsePositiveInteger(elements.singleNumber.value);
+        elements.checkerResult.className = "checker-result";
 
- if (number === null) {
- elements.checkerResult.classList.add("is-error");
- elements.checkerResult.innerHTML = '<span class="result-status">Enter a positive whole number</span>';
- elements.singleNumber.focus();
- return;
- }
+        if (number === null) {
+          elements.checkerResult.classList.add("is-error");
+          elements.checkerResult.innerHTML = '<span class="result-status">Enter a positive whole number</span>';
+          elements.singleNumber.focus();
+          return;
+        }
 
- const result = sourcingEngine.sourceNumber(number);
- if (result.isPrime) elements.checkerResult.classList.add("is-prime");
- elements.checkerResult.innerHTML = `
- <span class="result-number">${result.number.toLocaleString()}</span>
- <span class="result-status">${result.isPrime ? "Prime source confirmed" : result.number === 1 ? "Neither prime nor composite" : "Composite — not prime"}</span>
- `;
- };
+        const result = sourcingEngine.sourceNumber(number);
+        if (result.isPrime) elements.checkerResult.classList.add("is-prime");
+        elements.checkerResult.innerHTML = `
+          <span class="result-number">${result.number.toLocaleString()}</span>
+          <span class="result-status">${result.isPrime ? "Prime source confirmed" : result.number === 1 ? "Neither prime nor composite" : "Composite — not prime"}</span>
+        `;
+      };
 
- const validateBoundary = () => {
- const entry = parsePositiveInteger(elements.entryPoint.value);
- const exit = parsePositiveInteger(elements.exitPoint.value);
+      const validateBoundary = () => {
+        const entry = parsePositiveInteger(elements.entryPoint.value);
+        const exit = parsePositiveInteger(elements.exitPoint.value);
 
- if (entry === null || exit === null) {
- return { error: "Entry and Indiana exit points must be positive whole numbers." };
- }
- if (exit < entry) {
- return { error: "Indiana exit point must be equal to or greater than the entry point." };
- }
- if (exit - entry + 1 > MAX_RANGE_SIZE) {
- return { error: `Keep each field map to ${MAX_RANGE_SIZE.toLocaleString()} numbers or fewer.` };
- }
- return { entry, exit };
- };
+        if (entry === null || exit === null) {
+          return { error: "Entry and Indiana exit points must be positive whole numbers." };
+        }
+        if (exit < entry) {
+          return { error: "Indiana exit point must be equal to or greater than the entry point." };
+        }
+        if (exit - entry + 1 > MAX_RANGE_SIZE) {
+          return { error: `Keep each field map to ${MAX_RANGE_SIZE.toLocaleString()} numbers or fewer.` };
+        }
+        return { entry, exit };
+      };
 
- const renderBoundary = () => {
- const boundary = validateBoundary();
- elements.rangeMessage.textContent = boundary.error || "";
- if (boundary.error) return;
+      const renderBoundary = () => {
+        const boundary = validateBoundary();
+        elements.rangeMessage.textContent = boundary.error || "";
+        if (boundary.error) return;
 
- const results = sourcingEngine.sourceBoundary(boundary.entry, boundary.exit);
- const primeCount = results.reduce((count, item) => count + Number(item.isPrime), 0);
- const fragment = document.createDocumentFragment();
+        const results = sourcingEngine.sourceBoundary(boundary.entry, boundary.exit);
+        const primeCount = results.reduce((count, item) => count + Number(item.isPrime), 0);
+        const fragment = document.createDocumentFragment();
 
- results.forEach((item, index) => {
- const cell = document.createElement("div");
- const isEntry = item.number === boundary.entry;
- const isExit = item.number === boundary.exit;
- cell.className = "grid-cell";
- cell.textContent = item.number.toLocaleString();
- cell.style.animationDelay = `${Math.min(index, 35) * 12}ms`;
- if (item.isPrime) cell.classList.add("prime");
- if (isEntry) cell.classList.add("entry");
- if (isExit) cell.classList.add("exit");
- cell.title = `${item.number.toLocaleString()}: ${item.isPrime ? "prime" : "not prime"}${isEntry ? ", entry point" : ""}${isExit ? ", Indiana exit point" : ""}`;
- cell.setAttribute("aria-label", cell.title);
- fragment.appendChild(cell);
- });
+        results.forEach((item, index) => {
+          const cell = document.createElement("div");
+          const isEntry = item.number === boundary.entry;
+          const isExit = item.number === boundary.exit;
+          cell.className = "grid-cell";
+          cell.textContent = item.number.toLocaleString();
+          cell.style.animationDelay = `${Math.min(index, 35) * 12}ms`;
+          if (item.isPrime) cell.classList.add("prime");
+          if (isEntry) cell.classList.add("entry");
+          if (isExit) cell.classList.add("exit");
+          cell.title = `${item.number.toLocaleString()}: ${item.isPrime ? "prime" : "not prime"}${isEntry ? ", entry point" : ""}${isExit ? ", Indiana exit point" : ""}`;
+          cell.setAttribute("aria-label", cell.title);
+          fragment.appendChild(cell);
+        });
 
- elements.numberGrid.replaceChildren(fragment);
- elements.gridSummary.innerHTML = `
- <span class="summary-chip"><strong>${results.length.toLocaleString()}</strong> mapped</span>
- <span class="summary-chip"><strong>${primeCount.toLocaleString()}</strong> primes</span>
- <span class="summary-chip"><strong>${((primeCount / results.length) * 100).toFixed(1)}%</strong> density</span>
- `;
- };
+        elements.numberGrid.replaceChildren(fragment);
+        elements.gridSummary.innerHTML = `
+          <span class="summary-chip"><strong>${results.length.toLocaleString()}</strong> mapped</span>
+          <span class="summary-chip"><strong>${primeCount.toLocaleString()}</strong> primes</span>
+          <span class="summary-chip"><strong>${((primeCount / results.length) * 100).toFixed(1)}%</strong> density</span>
+        `;
+      };
 
- const applyPreset = () => {
- if (elements.rangePreset.value === "custom") return;
- const [entry, exit] = elements.rangePreset.value.split(":");
- elements.entryPoint.value = entry;
- elements.exitPoint.value = exit;
- renderBoundary();
- };
+      const applyPreset = () => {
+        if (elements.rangePreset.value === "custom") return;
+        const [entry, exit] = elements.rangePreset.value.split(":");
+        elements.entryPoint.value = entry;
+        elements.exitPoint.value = exit;
+        renderBoundary();
+      };
 
- const markPresetCustom = () => {
- const activeValue = `${elements.entryPoint.value}:${elements.exitPoint.value}`;
- const matchingOption = [...elements.rangePreset.options].find((option) => option.value === activeValue);
- elements.rangePreset.value = matchingOption ? activeValue : "custom";
- };
+      const markPresetCustom = () => {
+        const activeValue = `${elements.entryPoint.value}:${elements.exitPoint.value}`;
+        const matchingOption = [...elements.rangePreset.options].find((option) => option.value === activeValue);
+        elements.rangePreset.value = matchingOption ? activeValue : "custom";
+      };
 
- elements.checkerForm.addEventListener("submit", (event) => {
- event.preventDefault();
- checkSingleNumber();
- });
+      elements.checkerForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        checkSingleNumber();
+      });
 
- elements.rangeForm.addEventListener("submit", (event) => {
- event.preventDefault();
- renderBoundary();
- });
+      elements.rangeForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        renderBoundary();
+      });
 
- elements.rangePreset.addEventListener("change", applyPreset);
- elements.entryPoint.addEventListener("input", markPresetCustom);
- elements.exitPoint.addEventListener("input", markPresetCustom);
+      elements.rangePreset.addEventListener("change", applyPreset);
+      elements.entryPoint.addEventListener("input", markPresetCustom);
+      elements.exitPoint.addEventListener("input", markPresetCustom);
 
- renderBoundary();
- })();
- </script>
+      renderBoundary();
+    })();
+  </script>
 </body>
 </html>
+
 
 
 
