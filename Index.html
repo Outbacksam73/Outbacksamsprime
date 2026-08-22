@@ -3,816 +3,258 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Outback Sams Prime Sourcing checks individual numbers and maps prime-rich ranges in a clear 10-column field grid.">
-  <title>Outback Sams | Prime Sourcing Pro</title>
+  <title>Outback Sams | Master Portal</title>
   <style>
     :root {
-      color-scheme: light;
-      --ink: #17201c;
-      --ink-soft: #4f5a53;
-      --paper: #f4eddd;
-      --paper-bright: #fffaf0;
-      --paper-deep: #e7dcc4;
-      --line: rgba(23, 32, 28, 0.18);
-      --signal: #e95524;
-      --signal-dark: #b93612;
-      --moss: #536b4b;
-      --moss-dark: #2d4033;
-      --gold: #d7a62f;
-      --shadow: 0 24px 60px rgba(48, 37, 20, 0.14);
-      --display: "Arial Narrow", "Roboto Condensed", "Franklin Gothic Medium", sans-serif;
-      --body: Georgia, "Times New Roman", serif;
-      --ui: "Trebuchet MS", "Segoe UI", sans-serif;
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --accent: #38bdf8;
+      --accent-hover: #0284c7;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #334155;
     }
 
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      margin: 0;
-      min-width: 320px;
-      background:
-        radial-gradient(circle at 13% 8%, rgba(215, 166, 47, 0.18), transparent 26rem),
-        linear-gradient(rgba(23, 32, 28, 0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(23, 32, 28, 0.025) 1px, transparent 1px),
-        var(--paper);
-      background-size: auto, 32px 32px, 32px 32px, auto;
-      color: var(--ink);
-      font-family: var(--body);
-      line-height: 1.55;
+      font-family: system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 2rem 1rem;
     }
 
-    body::before {
-      position: fixed;
-      inset: 0;
-      z-index: 20;
-      pointer-events: none;
-      content: "";
-      opacity: 0.2;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
-      mix-blend-mode: multiply;
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
     }
+    header h1 { font-size: 2.5rem; color: var(--accent); margin-bottom: 0.5rem; }
+    header p { color: var(--text-muted); font-size: 1.1rem; }
 
-    button, input, select { font: inherit; }
-    button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible {
-      outline: 3px solid var(--gold);
-      outline-offset: 3px;
-    }
-
-    .shell { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
-    .eyebrow {
-      margin: 0 0 10px;
-      color: var(--signal-dark);
-      font-family: var(--ui);
-      font-size: 0.72rem;
-      font-weight: 800;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-    }
-
-    .site-header { position: relative; z-index: 5; border-bottom: 1px solid var(--line); }
-    .nav { display: flex; align-items: center; justify-content: space-between; min-height: 76px; gap: 24px; }
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 11px;
-      color: var(--ink);
-      font-family: var(--display);
-      font-size: 1.02rem;
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      text-decoration: none;
-      text-transform: uppercase;
-    }
-    .brand-mark {
-      display: grid;
-      width: 38px;
-      height: 38px;
-      place-items: center;
-      border: 2px solid var(--ink);
-      border-radius: 50% 50% 46% 54%;
-      background: var(--signal);
-      color: var(--paper-bright);
-      font-family: var(--body);
-      font-size: 1.25rem;
-      transform: rotate(-7deg);
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      font-family: var(--ui);
-      font-size: 0.79rem;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-    .nav-links a { color: var(--ink-soft); text-decoration: none; }
-    .nav-links a:hover { color: var(--signal-dark); }
-
-    .access-badge {
-      padding: 5px 12px;
-      border: 1px solid var(--moss-dark);
-      background: var(--moss);
-      color: white;
-      font-family: var(--ui);
-      font-size: 0.72rem;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .hero {
-      position: relative;
-      display: grid;
-      grid-template-columns: minmax(0, 1.5fr) minmax(260px, 0.6fr);
-      gap: clamp(42px, 8vw, 110px);
-      align-items: end;
-      padding: clamp(60px, 10vw, 120px) 0 64px;
-    }
-
-    h1 {
-      max-width: 820px;
-      margin-bottom: 24px;
-      font-family: var(--display);
-      font-size: clamp(4rem, 10vw, 8.5rem);
-      font-weight: 900;
-      letter-spacing: -0.065em;
-      line-height: 0.78;
-      text-transform: uppercase;
-    }
-    h1 span {
-      display: block;
-      margin-left: clamp(24px, 7vw, 110px);
-      color: var(--signal);
-      font-family: var(--body);
-      font-size: 0.5em;
-      font-style: italic;
-      font-weight: 700;
-    }
-
-    .hero-deck { max-width: 620px; margin: 0 0 32px; color: var(--ink-soft); font-size: 1.1rem; }
-    .button-row { display: flex; flex-wrap: wrap; gap: 12px; }
-
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 48px;
-      padding: 12px 20px;
-      border: 1px solid var(--ink);
-      background: var(--ink);
-      color: var(--paper-bright);
-      cursor: pointer;
-      font-family: var(--ui);
-      font-size: 0.78rem;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-decoration: none;
-      text-transform: uppercase;
-      transition: transform 160ms ease;
-    }
-    .button:hover { transform: translateY(-2px); }
-    .button.secondary { background: transparent; color: var(--ink); }
-    .button.signal { border-color: var(--signal-dark); background: var(--signal); color: white; }
-
-    .workspace { position: relative; z-index: 2; padding: 24px 0 96px; }
-    .section-heading {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(240px, 0.55fr);
-      gap: 40px;
-      align-items: end;
-      margin-bottom: 30px;
-    }
-    .section-heading h2 {
-      margin: 0;
-      font-family: var(--display);
-      font-size: clamp(2.6rem, 6vw, 5rem);
-      font-weight: 900;
-      line-height: 0.9;
-      text-transform: uppercase;
-    }
-
-    .tool-layout {
-      display: grid;
-      grid-template-columns: minmax(260px, 0.7fr) minmax(0, 1.3fr);
-      gap: 18px;
-    }
-
-    .panel {
-      border: 1px solid var(--line);
-      background: rgba(255, 250, 240, 0.74);
-      box-shadow: var(--shadow);
-    }
-
-    .checker-panel {
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
       display: flex;
       flex-direction: column;
-      padding: clamp(24px, 4vw, 42px);
-      background: var(--moss-dark);
-      color: var(--paper-bright);
-    }
-    .checker-panel h3, .range-panel h3 {
-      margin-bottom: 12px;
-      font-family: var(--display);
-      font-size: clamp(1.9rem, 4vw, 3rem);
-      line-height: 0.95;
-      text-transform: uppercase;
+      gap: 3rem;
     }
 
-    .field { display: grid; gap: 7px; }
-    .field label {
-      font-family: var(--ui);
-      font-size: 0.71rem;
-      font-weight: 800;
-      letter-spacing: 0.11em;
-      text-transform: uppercase;
-    }
-    .field input, .field select {
-      width: 100%;
-      min-height: 50px;
-      padding: 11px 13px;
-      border: 1px solid rgba(255, 250, 240, 0.35);
-      background: rgba(255, 250, 240, 0.08);
-      color: var(--paper-bright);
+    section h2 {
+      font-size: 1.5rem;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--accent);
     }
 
-    .checker-form { display: grid; gap: 12px; margin: 22px 0 18px; }
-    .checker-result {
+    .grid {
       display: grid;
-      min-height: 140px;
-      margin-top: auto;
-      padding: 20px;
-      place-content: center;
-      border: 1px dashed rgba(255, 250, 240, 0.3);
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent);
+    }
+    .card h3 { margin-bottom: 0.5rem; font-size: 1.2rem; }
+    .card p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.25rem; }
+
+    .btn {
+      display: inline-block;
+      background-color: var(--accent);
+      color: #000;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 0.6rem 1rem;
+      border-radius: 6px;
+      text-align: center;
+      transition: background-color 0.2s;
+    }
+    .btn:hover { background-color: var(--accent-hover); color: #fff; }
+
+    /* Helper Banner */
+    .banner {
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      border: 2px solid var(--accent);
+      border-radius: 12px;
+      padding: 2rem;
       text-align: center;
     }
-    .checker-result .result-number {
-      color: #efb34d;
-      font-family: var(--display);
-      font-size: clamp(3rem, 7vw, 5.5rem);
-      font-weight: 900;
-      line-height: 0.85;
-    }
-    .checker-result .result-status {
-      margin-top: 8px;
-      font-family: var(--ui);
-      font-size: 0.76rem;
-      font-weight: 800;
-      text-transform: uppercase;
-    }
+    .banner h2 { border-bottom: none; margin-bottom: 0.5rem; color: #fff; }
+    .banner p { color: var(--text-muted); margin-bottom: 1.5rem; }
 
-    .range-panel { padding: clamp(24px, 4vw, 42px); position: relative; }
-    .range-form { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 28px; }
-    .range-form .field:first-child, .range-actions, .form-message { grid-column: 1 / -1; }
-    .range-form .field input, .range-form .field select {
-      border-color: var(--line);
-      background: var(--paper-bright);
-      color: var(--ink);
-    }
-
-    .form-message {
-      min-height: 24px;
-      color: var(--signal-dark);
-      font-family: var(--ui);
-      font-size: 0.84rem;
-      font-weight: 700;
-    }
-
-    /* Pro Feature Sections */
-    .pro-panel {
-      margin-top: 24px;
-      padding: clamp(20px, 4vw, 38px);
-      border: 2px solid var(--moss);
-      background: var(--paper-bright);
-    }
-
-    .pro-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 18px;
-      border-bottom: 1px solid var(--line);
-      padding-bottom: 12px;
-    }
-
-    .pro-header h3 {
-      margin: 0;
-      font-family: var(--display);
-      font-size: 2rem;
-      text-transform: uppercase;
-    }
-
-    .sequence-controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-
-    .seq-btn {
-      padding: 8px 14px;
-      border: 1px solid var(--ink);
-      background: var(--paper);
-      font-family: var(--ui);
-      font-size: 0.75rem;
-      font-weight: 800;
-      cursor: pointer;
-      text-transform: uppercase;
-    }
-
-    .seq-btn.active {
-      background: var(--signal);
-      color: white;
-      border-color: var(--signal-dark);
-    }
-
-    .history-list {
-      max-height: 220px;
-      overflow-y: auto;
-      border: 1px solid var(--line);
-      background: white;
-      padding: 0;
-      margin: 0;
+    /* Subscribers List */
+    .subscriber-list {
       list-style: none;
-    }
-
-    .history-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 10px 14px;
-      border-bottom: 1px solid var(--line);
-      font-family: var(--ui);
-      font-size: 0.8rem;
-    }
-
-    .grid-panel { margin-top: 18px; padding: clamp(20px, 4vw, 38px); }
-    .grid-toolbar { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
-    .grid-toolbar h3 { margin: 0; font-family: var(--display); font-size: clamp(1.7rem, 4vw, 2.7rem); text-transform: uppercase; }
-    .grid-summary { display: flex; flex-wrap: wrap; gap: 8px; }
-    .summary-chip { padding: 7px 10px; border: 1px solid var(--line); background: var(--paper-bright); font-family: var(--ui); font-size: 0.7rem; font-weight: 800; text-transform: uppercase; }
-
-    .grid-scroll { overflow-x: auto; padding-bottom: 10px; }
-    .number-grid { display: grid; grid-template-columns: repeat(10, minmax(58px, 1fr)); gap: 7px; min-width: 650px; }
-    .grid-cell {
       display: grid;
-      aspect-ratio: 1;
-      place-items: center;
-      border: 1px solid var(--line);
-      background: rgba(255, 250, 240, 0.74);
-      color: var(--ink-soft);
-      font-family: var(--ui);
-      font-size: 0.85rem;
-      font-weight: 700;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.75rem;
     }
-    .grid-cell.prime { border-color: var(--moss-dark); background: var(--moss); color: white; font-weight: 900; }
-    .grid-cell.highlight-seq { border-color: var(--signal-dark); background: var(--signal); color: white; font-weight: 900; }
+    .subscriber-list li a {
+      color: var(--accent);
+      text-decoration: none;
+      background: var(--card-bg);
+      padding: 0.5rem 0.75rem;
+      border-radius: 4px;
+      display: block;
+      border: 1px solid var(--border);
+    }
+    .subscriber-list li a:hover { text-decoration: underline; }
 
-    .pricing { padding: 86px 0 110px; border-top: 1px solid var(--line); }
-    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 36px; }
-    .price-card { display: flex; flex-direction: column; padding: 30px; border: 1px solid var(--line); background: rgba(255, 250, 240, 0.75); }
-    .price-card.featured { border: 2px solid var(--signal-dark); background: var(--ink); color: var(--paper-bright); }
-    .plan-tag { margin-bottom: 24px; padding: 4px 8px; border: 1px solid currentColor; font-family: var(--ui); font-size: 0.65rem; font-weight: 800; text-transform: uppercase; align-self: flex-start; }
-    .price { margin-bottom: 18px; font-family: var(--display); font-size: 4rem; font-weight: 900; line-height: 0.9; }
-
-    .site-footer { padding: 26px 0 36px; border-top: 1px solid var(--line); color: var(--ink-soft); font-family: var(--ui); font-size: 0.76rem; }
-    .footer-inner { display: flex; justify-content: space-between; gap: 24px; }
-
-    .locked-badge {
-      display: inline-block;
-      padding: 3px 6px;
-      background: var(--signal);
-      color: white;
-      font-family: var(--ui);
-      font-size: 0.65rem;
-      font-weight: 800;
-      margin-left: 6px;
+    footer {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.85rem;
     }
   </style>
 </head>
 <body>
 
-  <header class="site-header">
-    <nav class="nav shell">
-      <a class="brand" href="#top">
-        <span class="brand-mark">S</span>
-        Outback Sams
-      </a>
-      <div class="nav-links">
-        <span class="access-badge" id="userTierDisplay">Free Tier</span>
-        <a href="#tools">Sourcing Station</a>
-        <a href="#pro-tools">Pro Features</a>
-        <a href="#pricing">Pricing</a>
-      </div>
-    </nav>
+  <header>
+    <h1>Outback Sams</h1>
+    <p>Hub for Mathematics, Dynamic Tools & Community Services</p>
   </header>
 
-  <main id="top">
-    <section class="hero shell">
-      <div class="hero-copy">
-        <p class="eyebrow">Prime intelligence for clear decisions</p>
-        <h1>Find the rare <span>in every range.</span></h1>
-        <p class="hero-deck">Check numbers, map boundaries, analyze sequence patterns, and track historical calculations in a clean 10-column matrix field.</p>
-        <div class="button-row">
-          <a class="button signal" href="#tools">Start sourcing</a>
-          <a class="button secondary" href="#pricing">View field plans</a>
+  <div class="container">
+
+    <!-- SECTION 1: Community Network -->
+    <section>
+      <div class="banner">
+        <h2>Outback Sam's Helpers</h2>
+        <p>Connecting local community volunteers and mutual aid projects.</p>
+        <a href="https://outbacksamshelpers.club" target="_blank" rel="noopener" class="btn">Visit OutbackSamsHelpers.club</a>
+      </div>
+    </section>
+
+    <!-- SECTION 2: Research & Mathematical Tools -->
+    <section>
+      <h2>Interactive Research Tools</h2>
+      <div class="grid">
+        <div class="card">
+          <div>
+            <h3>3D Trajectory & Conjecture</h3>
+            <p>Interactive spatial mapping, trajectories, and Collatz conjecture analysis.</p>
+          </div>
+          <a href="https://app.netlify.com/projects/collatzcon" target="_blank" rel="noopener" class="btn">Launch Tool</a>
+        </div>
+        <div class="card">
+          <div>
+            <h3>3D Wood Clock Wheel</h3>
+            <p>Visual clockwork wheel mechanics and gear 3D trajectory simulations.</p>
+          </div>
+          <a href="https://app.netlify.com/projects/3dttrajectory" target="_blank" rel="noopener" class="btn">Launch Tool</a>
+        </div>
+        <div class="card">
+          <div>
+            <h3>Fibonacci Sequence Tool</h3>
+            <p>Sequence digit analyzer and starter digit pattern tracking.</p>
+          </div>
+          <a href="https://app.netlify.com/projects/fibonacc" target="_blank" rel="noopener" class="btn">Launch Tool</a>
+        </div>
+        <div class="card">
+          <div>
+            <h3>Sieve / C Enthusiasts Tool</h3>
+            <p>Prime filtering algorithms and matrix pattern visualization.</p>
+          </div>
+          <a href="https://app.netlify.com/projects/siev" target="_blank" rel="noopener" class="btn">Launch Tool</a>
         </div>
       </div>
     </section>
 
-    <section class="workspace shell" id="tools">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">Sourcing station</p>
-          <h2>Check a point.<br>Map the ground.</h2>
-        </div>
-      </div>
-
-      <div class="tool-layout">
-        <!-- 01 Single Checker -->
-        <article class="panel checker-panel">
-          <p class="eyebrow">01 / Quick check</p>
-          <h3>Single-number checker</h3>
-          <p style="font-size: 0.85rem; opacity: 0.8;">Free checks limited to 100. Pro unlocks unlimited numbers.</p>
-          <form class="checker-form" id="checkerForm" novalidate>
-            <div class="field">
-              <label for="singleNumber">Number to check</label>
-              <input id="singleNumber" name="singleNumber" type="number" min="1" step="1" placeholder="Try 97" required>
-            </div>
-            <button class="button signal" type="submit">Check number</button>
-          </form>
-          <div class="checker-result" id="checkerResult">
-            <span class="result-status">Awaiting a number</span>
-          </div>
-        </article>
-
-        <!-- 02 Range Map -->
-        <article class="panel range-panel">
-          <p class="eyebrow">02 / Boundary map</p>
-          <h3>Entry / Indiana exit processor</h3>
-          <form class="range-form" id="rangeForm" novalidate>
-            <div class="field">
-              <label for="rangePreset">Quick boundary</label>
-              <select id="rangePreset" name="rangePreset">
-                <option value="1:100">Survey 1–100 (Free)</option>
-                <option value="2:300">Deep scan 2–300 (Pro)</option>
-                <option value="100:500">Extended 100–500 (Pro)</option>
-                <option value="custom">Custom points (Pro)</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="entryPoint">Entry point</label>
-              <input id="entryPoint" name="entryPoint" type="number" min="1" step="1" value="1" required>
-            </div>
-            <div class="field">
-              <label for="exitPoint">Indiana exit point</label>
-              <input id="exitPoint" name="exitPoint" type="number" min="1" step="1" value="100" required>
-            </div>
-            <div class="range-actions">
-              <button class="button" type="submit">Process boundary</button>
-            </div>
-            <p class="form-message" id="rangeMessage"></p>
-          </form>
-        </article>
-      </div>
-
-      <!-- 03 Grid View -->
-      <article class="panel grid-panel">
-        <div class="grid-toolbar">
+    <!-- SECTION 3: Projects & Applications -->
+    <section>
+      <h2>Projects & App Engine</h2>
+      <div class="grid">
+        <div class="card">
           <div>
-            <p class="eyebrow">03 / Visual field</p>
-            <h3>10-column sourcing grid</h3>
+            <h3>Project Radar 1 (Prime Matrix)</h3>
+            <p>Core tracking and prime matrix grid analyzer.</p>
           </div>
-          <div class="grid-summary" id="gridSummary"></div>
+          <a href="https://prime1.outbacksams.com/" target="_blank" rel="noopener" class="btn">Open App</a>
         </div>
-        <div class="grid-scroll">
-          <div class="number-grid" id="numberGrid"></div>
-        </div>
-      </article>
-
-      <!-- PRO FEATURE 1: Sequence Explorer -->
-      <article class="pro-panel" id="pro-tools">
-        <div class="pro-header">
+        <div class="card">
           <div>
-            <p class="eyebrow">Pro feature</p>
-            <h3>Sequence Explorer <span class="locked-badge" id="seqLockTag">PRO</span></h3>
+            <h3>Project Radar 2 (Prime GE2)</h3>
+            <p>Expanded target tracking and secondary grid analysis.</p>
           </div>
-          <button class="button secondary" id="exportCsvBtn">Export CSV</button>
+          <a href="https://app.netlify.com/projects/primege2" target="_blank" rel="noopener" class="btn">Open App</a>
         </div>
-        <p style="font-size: 0.9rem; color: var(--ink-soft);">Highlight mathematical patterns across the active range:</p>
-        <div class="sequence-controls">
-          <button class="seq-btn active" data-seq="all">All Primes</button>
-          <button class="seq-btn" data-seq="twin">Twin Primes (Gap 2)</button>
-          <button class="seq-btn" data-seq="cousin">Cousin Primes (Gap 4)</button>
-          <button class="seq-btn" data-seq="sexy">Sexy Primes (Gap 6)</button>
-        </div>
-      </article>
-
-      <!-- PRO FEATURE 2: Calculation History -->
-      <article class="pro-panel">
-        <div class="pro-header">
+        <div class="card">
           <div>
-            <p class="eyebrow">Pro feature</p>
-            <h3>Calculation & Session History <span class="locked-badge" id="histLockTag">PRO</span></h3>
+            <h3>Hacking & Crypting Apps</h3>
+            <p>Deterministic matrix key generation, hacking interface, and payload encryption.</p>
           </div>
-          <button class="button secondary" id="clearHistoryBtn">Clear Log</button>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <a href="https://encryption.outbacksams.com/" target="_blank" rel="noopener" class="btn" style="flex: 1;">Encryption</a>
+            <a href="https://app.netlify.com/projects/hackmeb" target="_blank" rel="noopener" class="btn" style="flex: 1;">HackMeB</a>
+          </div>
         </div>
-        <ul class="history-list" id="historyList">
-          <li class="history-item"><span>No calculations recorded in this session.</span></li>
-        </ul>
-      </article>
-    </section>
-
-    <!-- Pricing Section -->
-    <section class="pricing" id="pricing">
-      <div class="shell">
-        <div class="section-heading">
+        <div class="card">
           <div>
-            <p class="eyebrow">Field plans</p>
-            <h2>Source your way.</h2>
+            <h3>Outback Sams App Factory</h3>
+            <p>Automated app builder and deployment pipeline engine.</p>
           </div>
+          <a href="https://app.netlify.com/projects/appfactorysam" target="_blank" rel="noopener" class="btn">Open App</a>
         </div>
-
-        <div class="pricing-grid">
-          <article class="price-card">
-            <span class="plan-tag">First look</span>
-            <h3>3-day trial</h3>
-            <p class="price"><sup>$</sup>0</p>
-            <p>Test the basic 10-column grid and single checks up to 100.</p>
-            <a class="button" href="#tools">Use Free Tier</a>
-          </article>
-
-          <article class="price-card">
-            <span class="plan-tag">Pay as you go</span>
-            <h3>Pass Token</h3>
-            <p class="price"><sup>$</sup>5.00</p>
-            <p>Unlock custom ranges and sequence tools for a single session.</p>
-            <a class="button signal" href="https://buy.stripe.com/00waEYac3f684LNfE90Ba0g">Buy $5.00 Pass</a>
-          </article>
-
-          <article class="price-card featured">
-            <span class="plan-tag">Best for regulars</span>
-            <h3>Pro Unlimited</h3>
-            <p class="price"><sup>$</sup>14.99<small>/mo</small></p>
-            <p>Unlimited checks, sequence explorer, custom history log, and CSV exports.</p>
-            <a class="button signal" href="https://buy.stripe.com/dRmaEYckb3nq2DFdw10Ba0f">Subscribe $14.99/mo</a>
-          </article>
+        <div class="card">
+          <div>
+            <h3>Auxiliary Project Portal</h3>
+            <p>Secondary dashboard and hosting overview.</p>
+          </div>
+          <a href="https://app.netlify.com/projects/glowing-heliotrope-43a2e9" target="_blank" rel="noopener" class="btn">Open App</a>
         </div>
       </div>
     </section>
-  </main>
 
-  <footer class="site-footer">
-    <div class="footer-inner shell">
-      <p><strong>Outback Sams</strong> — prime sourcing, plainly mapped.</p>
-    </div>
+    <!-- SECTION 4: First 100 Subscribers Directory -->
+    <section>
+      <h2>First 100 Web Subscribers</h2>
+      <p style="color: var(--text-muted); margin-bottom: 1rem;">Early supporters directory and site links.</p>
+      <ul class="subscriber-list">
+        <!-- Add your subscriber links below as people sign up -->
+        <li><a href="#" target="_blank">001. Reserved Slot</a></li>
+      </ul>
+    </section>
+
+    <!-- SECTION 5: PayPal Checkout Links -->
+    <!-- PAYPAL_LINKS_START -->
+    <section>
+      <h2>Support & Payment Links</h2>
+      <div class="grid">
+        <div class="card">
+          <div>
+            <h3>Supporter Access</h3>
+            <p>Direct PayPal checkout link for site features or subscriptions.</p>
+          </div>
+          <a href="YOUR_PAYPAL_LINK_HERE" class="btn" target="_blank" rel="noopener">Pay with PayPal</a>
+        </div>
+        <!-- COPY & PASTE THE CARD ABOVE TO ADD A NEW PAYPAL LINK -->
+      </div>
+    </section>
+    <!-- PAYPAL_LINKS_END -->
+
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Outback Sams. All rights reserved.</p>
   </footer>
 
-  <script>
-    (() => {
-      "use strict";
-
-      // Access Level Manager (Defaults to Free unless Stripe URL token present)
-      const urlParams = new URLSearchParams(window.location.search);
-      let userAccess = localStorage.getItem('outback_access_level') || 'free';
-
-      if (urlParams.get('access') === 'pro' || urlParams.get('session_id')) {
-        userAccess = 'pro';
-        localStorage.setItem('outback_access_level', 'pro');
-      } else if (urlParams.get('access') === 'pass') {
-        userAccess = 'pass';
-        localStorage.setItem('outback_access_level', 'pass');
-      }
-
-      const elements = {
-        tierDisplay: document.querySelector("#userTierDisplay"),
-        checkerForm: document.querySelector("#checkerForm"),
-        singleNumber: document.querySelector("#singleNumber"),
-        checkerResult: document.querySelector("#checkerResult"),
-        rangeForm: document.querySelector("#rangeForm"),
-        rangePreset: document.querySelector("#rangePreset"),
-        entryPoint: document.querySelector("#entryPoint"),
-        exitPoint: document.querySelector("#exitPoint"),
-        rangeMessage: document.querySelector("#rangeMessage"),
-        numberGrid: document.querySelector("#numberGrid"),
-        gridSummary: document.querySelector("#gridSummary"),
-        historyList: document.querySelector("#historyList"),
-        clearHistoryBtn: document.querySelector("#clearHistoryBtn"),
-        exportCsvBtn: document.querySelector("#exportCsvBtn"),
-        seqBtns: document.querySelectorAll(".seq-btn"),
-        seqLockTag: document.querySelector("#seqLockTag"),
-        histLockTag: document.querySelector("#histLockTag")
-      };
-
-      let activeRangeResults = [];
-      let currentSeqFilter = 'all';
-
-      // Update UI Header Access Badges
-      if (elements.tierDisplay) {
-        elements.tierDisplay.textContent = userAccess.toUpperCase() + " TIER";
-        if (userAccess !== 'free') {
-          elements.seqLockTag.style.display = "none";
-          elements.histLockTag.style.display = "none";
-        }
-      }
-
-      // Prime Engine with hidden 7-grid checks
-      const isPrime = (n) => {
-        if (n < 2) return false;
-        if (n === 2 || n === 3) return true;
-        if (n % 2 === 0 || n % 3 === 0) return false;
-        for (let d = 5; d * d <= n; d += 6) {
-          if (n % d === 0 || n % (d + 2) === 0) return false;
-        }
-        return true;
-      };
-
-      // Log Calculation History
-      const logHistory = (type, details) => {
-        if (userAccess === 'free') return; // History is Pro only
-
-        let history = JSON.parse(localStorage.getItem('outback_history') || '[]');
-        const entry = {
-          time: new Date().toLocaleTimeString(),
-          type,
-          details
-        };
-        history.unshift(entry);
-        if (history.length > 20) history.pop(); // Keep top 20
-        localStorage.setItem('outback_history', JSON.stringify(history));
-        renderHistory();
-      };
-
-      const renderHistory = () => {
-        if (userAccess === 'free') {
-          elements.historyList.innerHTML = `<li class="history-item"><span>History logging locked. Upgrade to Pro to track session checks.</span></li>`;
-          return;
-        }
-
-        let history = JSON.parse(localStorage.getItem('outback_history') || '[]');
-        if (history.length === 0) {
-          elements.historyList.innerHTML = `<li class="history-item"><span>No calculations recorded in this session.</span></li>`;
-          return;
-        }
-
-        elements.historyList.innerHTML = history.map(item => `
-          <li class="history-item">
-            <strong>${item.time} [${item.type}]</strong>
-            <span>${item.details}</span>
-          </li>
-        `).join('');
-      };
-
-      // Single Number Checker
-      elements.checkerForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const num = Number(elements.singleNumber.value);
-        if (!num || num < 1) return;
-
-        if (userAccess === 'free' && num > 100) {
-          elements.checkerResult.className = "checker-result";
-          elements.checkerResult.innerHTML = '<span class="result-status">Free tier limit is 100. Upgrade to check larger numbers.</span>';
-          return;
-        }
-
-        const prime = isPrime(num);
-        elements.checkerResult.className = "checker-result";
-        elements.checkerResult.innerHTML = `
-          <span class="result-number">${num}</span>
-          <span class="result-status">${prime ? "Prime Source Confirmed" : "Composite Number"}</span>
-        `;
-
-        logHistory('Single Check', `Checked ${num} → ${prime ? 'PRIME' : 'Composite'}`);
-      });
-
-      // Range Processor & Grid
-      const renderBoundary = () => {
-        const entry = Number(elements.entryPoint.value) || 1;
-        const exit = Number(elements.exitPoint.value) || 100;
-
-        // Gate custom/large ranges behind paid tiers
-        if (userAccess === 'free' && (exit > 100 || entry < 1)) {
-          elements.rangeMessage.textContent = "Free tier is restricted to 1–100. Purchase a $2.99 Pass or Subscription to process larger boundaries.";
-          return;
-        }
-
-        elements.rangeMessage.textContent = "";
-        activeRangeResults = [];
-        let primeCount = 0;
-
-        for (let i = entry; i <= exit; i++) {
-          const primeState = isPrime(i);
-          if (primeState) primeCount++;
-          activeRangeResults.push({ number: i, isPrime: primeState });
-        }
-
-        renderGridCells();
-        logHistory('Boundary Scan', `Mapped ${entry} to ${exit} (${primeCount} primes found)`);
-      };
-
-      const renderGridCells = () => {
-        const fragment = document.createDocumentFragment();
-
-        activeRangeResults.forEach((item, index) => {
-          const cell = document.createElement("div");
-          cell.className = "grid-cell";
-          cell.textContent = item.number;
-
-          if (item.isPrime) {
-            cell.classList.add("prime");
-
-            // Apply Sequence Filters (Pro feature)
-            if (userAccess !== 'free' && currentSeqFilter !== 'all') {
-              const prev = activeRangeResults[index - 1];
-              const next = activeRangeResults[index + 1];
-
-              let isSeqMatch = false;
-              let targetGap = currentSeqFilter === 'twin' ? 2 : currentSeqFilter === 'cousin' ? 4 : 6;
-
-              if (prev && prev.isPrime && (item.number - prev.number === targetGap)) isSeqMatch = true;
-              if (next && next.isPrime && (next.number - item.number === targetGap)) isSeqMatch = true;
-
-              if (isSeqMatch) {
-                cell.classList.remove("prime");
-                cell.classList.add("highlight-seq");
-              }
-            }
-          }
-
-          fragment.appendChild(cell);
-        });
-
-        elements.numberGrid.replaceChildren(fragment);
-        elements.gridSummary.innerHTML = `
-          <span class="summary-chip"><strong>${activeRangeResults.length}</strong> Mapped</span>
-          <span class="summary-chip"><strong>${activeRangeResults.filter(r => r.isPrime).length}</strong> Primes</span>
-        `;
-      };
-
-      // Sequence Buttons Handler
-      elements.seqBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          if (userAccess === 'free') {
-            alert("Sequence Explorer is a Pro feature. Upgrade your plan to unlock.");
-            return;
-          }
-          elements.seqBtns.forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          currentSeqFilter = btn.getAttribute('data-seq');
-          renderGridCells();
-        });
-      });
-
-      // Clear History Button
-      elements.clearHistoryBtn.addEventListener('click', () => {
-        if (userAccess === 'free') return;
-        localStorage.removeItem('outback_history');
-        renderHistory();
-      });
-
-      // CSV Export Handler
-      elements.exportCsvBtn.addEventListener('click', () => {
-        if (userAccess === 'free') {
-          alert("CSV Export is a Pro feature. Upgrade your plan to download files.");
-          return;
-        }
-
-        if (activeRangeResults.length === 0) return;
-
-        let csvContent = "data:text/csv;charset=utf-8,Number,IsPrime\n" 
-          + activeRangeResults.map(r => `${r.number},${r.isPrime}`).join("\n");
-
-        const encodedUri = encodeURI(csvContent);
-        const link = document.createElement("a");
-        link.setAttribute("href", encodedUri);
-        link.setAttribute("download", "outback_sams_primes.csv");
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      });
-
-      elements.rangeForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        renderBoundary();
-      });
-
-      elements.rangePreset.addEventListener("change", () => {
-        const [entry, exit] = elements.rangePreset.value.split(":");
-        if (entry && exit) {
-          elements.entryPoint.value = entry;
-          elements.exitPoint.value = exit;
-          renderBoundary();
-        }
-      });
-
-      // Initialize
-      renderBoundary();
-      renderHistory();
-    })();
-  </script>
 </body>
 </html>
+
 
 
 
