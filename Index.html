@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Outback Sam's App Factory | Custom Web & App Solutions</title>
-    <!-- PayPal SDK Loaded Once globally -->
+    <title>Outback Sams | Web Apps & Stash Gear</title>
     <script src="https://www.paypal.com/sdk/js?client-id=BAAeY77CGfqgXICKW8wLcqic7TUiJFYi98IvknbmSnzIvAmXa4mrY1gt4ZYTyVg8G_btWNwS_XkGEUMnPU&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
     <style>
         :root {
@@ -17,6 +16,7 @@
             --gold: #f59e0b;
             --danger: #ef4444;
             --green: #10b981;
+            --orange: #e67e22;
             --font-mono: 'Courier New', SFMono-Regular, Consolas, monospace;
         }
 
@@ -88,6 +88,17 @@
             border-color: var(--accent-color);
         }
 
+        .nav-btn.belt-btn {
+            border-color: var(--orange);
+            color: var(--orange);
+        }
+
+        .nav-btn.belt-btn:hover, .nav-btn.belt-btn.active {
+            background: var(--orange);
+            color: #fff;
+            border-color: var(--orange);
+        }
+
         /* Container Sections */
         .page-section {
             display: none;
@@ -101,7 +112,7 @@
             display: block;
         }
 
-        /* App Factory Landing Header */
+        /* Header Styles */
         header.factory-header {
             text-align: center;
             margin-bottom: 40px;
@@ -222,6 +233,65 @@
             margin-top: auto;
         }
 
+        /* Stash Belt Specific Card Styling */
+        .stash-product-card {
+            background: var(--card-bg);
+            border: 1px solid var(--orange);
+            border-radius: 12px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 0 25px rgba(230, 126, 34, 0.1);
+        }
+
+        @media (min-width: 650px) {
+            .stash-product-card {
+                flex-direction: row;
+                align-items: center;
+            }
+        }
+
+        .stash-image-box {
+            flex: 1;
+            background: #090d16;
+            border: 1px dashed var(--border-color);
+            min-height: 260px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-sub);
+            font-weight: bold;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .stash-details {
+            flex: 1;
+        }
+
+        .stash-buy-btn {
+            display: block;
+            width: 100%;
+            background-color: var(--orange);
+            color: #ffffff;
+            text-align: center;
+            padding: 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: background 0.2s ease;
+            margin-top: 1rem;
+        }
+
+        .stash-buy-btn:hover {
+            background-color: #d35400;
+        }
+
         /* Inline Tool Specific Styles */
         .mono { font-family: var(--font-mono); }
         .grid-10 { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; }
@@ -237,45 +307,46 @@
             text-align: center;
             font-size: 0.9rem;
         }
+
+        footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
 
-    <!-- TOP GLOBAL NAVIGATION -->
     <nav>
         <div class="brand-title">
-            <span>⚡ Outback Sam's App Factory</span>
+            <span>⚡ OutbackSams.com</span>
         </div>
         <div class="nav-links">
-            <button class="nav-btn active" onclick="switchSection('sec-factory')">App Factory (Main)</button>
-            <button class="nav-btn" onclick="switchSection('sec-encrypted-messenger')">7-Grid Encryption</button>
-            <button class="nav-btn" onclick="switchSection('sec-prime-engine')">14-Digit Prime Engine</button>
-            <button class="nav-btn" onclick="switchSection('sec-cryptanalysis')">Gatekeeper Challenge</button>
+            <button class="nav-btn active" onclick="switchSection('sec-factory', event)">App Factory</button>
+            <button class="nav-btn belt-btn" onclick="switchSection('sec-stash-belt', event)">🎒 Stash Belt Store</button>
+            <button class="nav-btn" onclick="switchSection('sec-encrypted-messenger', event)">7-Grid Encryption</button>
+            <button class="nav-btn" onclick="switchSection('sec-prime-engine', event)">14-Digit Prime Engine</button>
+            <button class="nav-btn" onclick="switchSection('sec-cryptanalysis', event)">Gatekeeper Challenge</button>
         </div>
     </nav>
 
-    <!-- SECTION 1: APP FACTORY MAIN PAGE -->
     <div id="sec-factory" class="page-section active">
         <header class="factory-header">
-            <h1>Outback Sam's App Factory</h1>
+            <h1>Outback Sams App Factory</h1>
             <p>Turn Your Ideas into Functional Web & Selling Apps</p>
         </header>
 
-        <!-- Direct Custom Service Payment Banner -->
         <div class="external-link-banner">
             <div>
                 <h3 style="margin-bottom: 4px;">Direct Custom Service Payment Link</h3>
-                <p style="color: var(--text-sub); font-size: 0.95rem;">Need one-off custom work or integration services? Use this direct payment link.</p>
+                <p style="color: var(--text-sub); font-size: 0.95rem;">Need custom dev work or integrations for outbacksams.com? Use this payment link.</p>
             </div>
             <a href="https://www.paypal.com/ncp/payment/YOUR_DIRECT_LINK_ID" target="_blank" rel="noopener noreferrer" class="external-pay-btn">
                 Pay Custom Amount
             </a>
         </div>
 
-        <!-- 6 LIVE PAYPAL SUBSCRIPTION PLANS -->
         <div class="pricing-container">
 
-            <!-- Plan 1 ($14.99) -->
             <div class="price-card">
                 <h2 class="plan-title">Gatekeeper Challenge</h2>
                 <div style="font-size: 1.5rem; font-weight: bold; color: var(--green); margin-bottom: 4px;">$14.99 <span style="font-size: 0.85rem; color: var(--text-sub);">/ mo</span></div>
@@ -288,7 +359,6 @@
                 <div id="paypal-button-container-P-39103227S07205137NKHFYAI" class="paypal-button-container"></div>
             </div>
 
-            <!-- Plan 2 ($14.99) -->
             <div class="price-card">
                 <h2 class="plan-title">7-Grid Encryption Tool</h2>
                 <div style="font-size: 1.5rem; font-weight: bold; color: var(--green); margin-bottom: 4px;">$14.99 <span style="font-size: 0.85rem; color: var(--text-sub);">/ mo</span></div>
@@ -301,7 +371,6 @@
                 <div id="paypal-button-container-P-82X750070F046421SNKHFZVA" class="paypal-button-container"></div>
             </div>
 
-            <!-- Plan 3 ($14.99) -->
             <div class="price-card">
                 <h2 class="plan-title">14-Digit Prime Generator</h2>
                 <div style="font-size: 1.5rem; font-weight: bold; color: var(--green); margin-bottom: 4px;">$14.99 <span style="font-size: 0.85rem; color: var(--text-sub);">/ mo</span></div>
@@ -314,253 +383,11 @@
                 <div id="paypal-button-container-P-4T457962VP5515642NKHF2RI" class="paypal-button-container"></div>
             </div>
 
-            <!-- Plan 4 ($20.00 Bundle) -->
             <div class="price-card featured">
                 <div class="badge-tag" style="background-color: var(--accent-color); color: #000;">Bundle Deal</div>
                 <h2 class="plan-title">3-in-1 Tool Suite</h2>
                 <div style="font-size: 1.5rem; font-weight: bold; color: var(--green); margin-bottom: 4px;">$20.00 <span style="font-size: 0.85rem; color: var(--text-sub);">/ mo</span></div>
-                <div class="plan-id-text">Plan ID: P-6TF06049H2530772CNKHGC5Y</div>
-                <ul class="features-list">
-                    <li><strong>ALL 3 TOOLS INCLUDED</strong></li>
-                    <li>Gatekeeper Challenge + 7-Grid Cipher</li>
-                    <li>Full 14-Digit Prime Engine Access</li>
-                </ul>
-                <div id="paypal-button-container-P-6TF06049H2530772CNKHGC5Y" class="paypal-button-container"></div>
-            </div>
-
-            <!-- Plan 5 ($30.00) -->
-            <div class="price-card">
-                <h2 class="plan-title">Subdomain Website</h2>
-                <div style="font-size: 1.5rem; font-weight: bold; color: var(--green); margin-bottom: 4px;">$30.00 <span style="font-size: 0.85rem; color: var(--text-sub);">/ mo</span></div>
-                <div class="plan-id-text">Plan ID: P-5W661557KD6448334NKHGALI</div>
-                <ul class="features-list">
-                    <li>Hosted on outbacksams subdomain</li>
-                    <li>Simple Advertising / Showcase Site</li>
-                    <li>No E-Commerce / No Direct Checkout</li>
-                </ul>
-                <div id="paypal-button-container-P-5W661557KD6448334NKHGALI" class="paypal-button-container"></div>
-            </div>
-
-            <!-- Plan 6 ($75.00) -->
-            <div class="price-card featured">
-                <div class="badge-tag">Pro Selling</div>
-                <h2 class="plan-title">Pro Selling Website</h2>
-                <div style="font-size: 1.5rem; font-weight: bold; color: var(--green); margin-bottom: 4px;">$75.00 <span style="font-size: 0.85rem; color: var(--text-sub);">/ mo</span></div>
-                <div class="plan-id-text">Plan ID: P-3KS40531G4307451CNKHGBZQ</div>
-                <ul class="features-list">
-                    <li>Full Custom Selling Site & E-Commerce</li>
-                    <li>Custom Domain Routing Included</li>
-                    <li>Complete Payment Checkout Integration</li>
-                </ul>
-                <div id="paypal-button-container-P-3KS40531G4307451CNKHGBZQ" class="paypal-button-container"></div>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- SECTION 2: 7-GRID ENCRYPTED MESSENGER -->
-    <div id="sec-encrypted-messenger" class="page-section">
-        <h2 style="color: var(--accent-color); margin-bottom: 16px;">OutbackSams Encrypted Messenger</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
-            
-            <!-- Encrypt Box -->
-            <div style="background: var(--card-bg); padding: 20px; border-radius: 8px; border: 1px solid var(--border-color);">
-                <h3>Encrypt Transmit Node</h3>
-                <label style="display:block; margin-top:10px; font-size:0.85rem;">Passcode Key:</label>
-                <input type="number" id="sendKey" value="258" style="width:100%; padding:8px; margin-bottom:10px; background:#0f172a; border:1px solid #334155; color:#fff;">
-                <label style="display:block; font-size:0.85rem;">Plaintext Message:</label>
-                <textarea id="plainText" style="width:100%; height:80px; padding:8px; background:#0f172a; border:1px solid #334155; color:#fff;">Welcome to OutbackSams 7-Grid Encryption.</textarea>
-                <button onclick="handleEncrypt()" style="background:var(--green); color:#fff; border:none; padding:10px 16px; border-radius:4px; font-weight:bold; margin-top:10px; cursor:pointer;">Encrypt Message</button>
-                <div id="cipherOutput" class="mono" style="margin-top:10px; padding:10px; background:#0f172a; word-break:break-all; font-size:0.8rem; border:1px solid #334155;"></div>
-            </div>
-
-            <!-- Decrypt Box -->
-            <div style="background: var(--card-bg); padding: 20px; border-radius: 8px; border: 1px solid var(--border-color);">
-                <h3>Decrypt Receiver Node</h3>
-                <label style="display:block; margin-top:10px; font-size:0.85rem;">Passcode Key:</label>
-                <input type="number" id="recvKey" value="258" style="width:100%; padding:8px; margin-bottom:10px; background:#0f172a; border:1px solid #334155; color:#fff;">
-                <label style="display:block; font-size:0.85rem;">Payload String:</label>
-                <textarea id="cipherInput" class="mono" style="width:100%; height:80px; padding:8px; background:#0f172a; border:1px solid #334155; color:#fff;"></textarea>
-                <button onclick="handleDecrypt()" style="background:#30363d; color:#fff; border:1px solid #475569; padding:10px 16px; border-radius:4px; font-weight:bold; margin-top:10px; cursor:pointer;">Decrypt Payload</button>
-                <div id="decryptedOutput" style="margin-top:10px; padding:10px; background:#0f172a; font-weight:bold; color:var(--accent-color); border:1px solid #334155;">...</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- SECTION 3: 14-DIGIT PURE PRIME ENGINE -->
-    <div id="sec-prime-engine" class="page-section">
-        <h2 style="color: var(--accent-color); margin-bottom: 8px;">14-Digit Boundary Scanner</h2>
-        <p style="color: var(--text-sub); margin-bottom: 16px;">Pure Prime Output & Export Tool</p>
-        
-        <div style="display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap;">
-            <input type="text" id="startInput" value="10000000000006" style="flex:2; padding:10px; background:#0f172a; border:1px solid #334155; color:var(--accent-color); font-family:var(--font-mono);">
-            <input type="number" id="spanInput" value="100000" style="flex:1; padding:10px; background:#0f172a; border:1px solid #334155; color:var(--accent-color);">
-            <button onclick="runPurePrimeEngine()" style="background:#0284c7; color:#fff; border:none; padding:10px 16px; font-weight:bold; cursor:pointer; border-radius:4px;">Generate Primes</button>
-            <button id="copyBtn" onclick="copyPrimesToClipboard()" style="background:var(--green); color:#fff; border:none; padding:10px 16px; font-weight:bold; cursor:pointer; border-radius:4px;">Copy Primes</button>
-        </div>
-
-        <div id="statsBox" style="background:#0f172a; padding:12px; border-left:4px solid var(--green); margin-bottom:16px; font-size:0.9rem;">
-            Ready to run calculations...
-        </div>
-
-        <div class="grid-10" id="gridOutput" style="max-height: 350px; overflow-y: auto; background:#0f172a; padding:10px; border-radius:4px;"></div>
-    </div>
-
-    <!-- SECTION 4: GATEKEEPER CRYPTANALYSIS CHALLENGE -->
-    <div id="sec-cryptanalysis" class="page-section">
-        <h2 style="color: var(--accent-color); margin-bottom: 16px;">⚡ Can You Break The Gatekeeper?</h2>
-        <div style="background: var(--card-bg); padding: 20px; border-radius: 8px; border: 1px solid var(--border-color);">
-            <div id="level-indicator" class="mono" style="color: var(--gold); font-weight: bold; margin-bottom: 8px;">SECURITY LEVEL 1 OF 3</div>
-            <p id="target-desc" style="color: var(--text-sub); font-size: 0.9rem; margin-bottom: 16px;">Level 1 Gateway. Enter passcode key to breach initial access.</p>
-            
-            <input type="number" id="passcode-input" placeholder="Enter secret passcode..." style="width: 100%; padding: 10px; margin-bottom: 10px; background: #0f172a; border: 1px solid #334155; color: #fff;">
-            <button onclick="attemptHack()" style="background: var(--accent-color); color: #000; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; border-radius: 4px;">Execute Attack</button>
-
-            <h4 style="margin-top: 20px; margin-bottom: 8px;">Terminal Output:</h4>
-            <div id="terminal" class="terminal-box">
-                <div>[SYSTEM]: Security Sandbox Level 1 initialized.</div>
-            </div>
-        </div>
-    </div>
-
-    <footer>
-        <p>&copy; 2026 Outback Sam's App Factory. All rights reserved.</p>
-    </footer>
-
-    <!-- GLOBAL SCRIPT FOR TAB SWITCHING, PAYPAL INITIALIZATION & TOOLS -->
-    <script>
-        // Section Switching Engine
-        function switchSection(secId) {
-            document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            
-            document.getElementById(secId).classList.add('active');
-            if (event && event.target) {
-                event.target.classList.add('active');
-            }
-        }
-
-        // Render Live PayPal Subscription Buttons
-        window.addEventListener('DOMContentLoaded', () => {
-            const planIDs = [
-                'P-39103227S07205137NKHFYAI',
-                'P-82X750070F046421SNKHFZVA',
-                'P-4T457962VP5515642NKHF2RI',
-                'P-6TF06049H2530772CNKHGC5Y',
-                'P-5W661557KD6448334NKHGALI',
-                'P-3KS40531G4307451CNKHGBZQ'
-            ];
-
-            planIDs.forEach(planId => {
-                const containerId = `paypal-button-container-${planId}`;
-                if (document.getElementById(containerId)) {
-                    paypal.Buttons({
-                        style: { shape: 'rect', color: 'gold', layout: 'vertical', label: 'subscribe' },
-                        createSubscription: function(data, actions) {
-                            return actions.subscription.create({ 'plan_id': planId });
-                        },
-                        onApprove: function(data, actions) {
-                            alert('Subscribed successfully! Subscription ID: ' + data.subscriptionID);
-                        }
-                    }).render(`#${containerId}`);
-                }
-            });
-            
-            // Auto encrypt initial demo string
-            handleEncrypt();
-        });
-
-        // --- 7-GRID ENGINE LOGIC ---
-        const GATEKEEPER_KEY = 258;
-        const BASE_MAP = { 'A': 149, 'B': 163, 'C': 101, 'D': 143, 'E': 157, 'H': 151, 'I': 89, 'O': 190, 'P': 204, 'S': 178, 'T': 172, 'W': 154, 'a': 180, 'b': 174, 'c': 168, 'd': 212, 'e': 206, 'g': 194, 'k': 246, 'l': 260, 'm': 240, 'n': 234, 'o': 235, 'r': 216, 's': 210, 't': 254, 'u': 248, 'y': 224, ' ': 100, '.': 105 };
-        const REVERSE_BASE_MAP = {};
-        Object.keys(BASE_MAP).forEach(k => REVERSE_BASE_MAP[BASE_MAP[k]] = k);
-
-        function handleEncrypt() {
-            const text = document.getElementById('plainText').value;
-            let keys = [];
-            for (let i = 0; i < text.length; i++) {
-                let code = BASE_MAP[text[i]] || text.charCodeAt(i);
-                keys.push((code * 7) + (i * 365) + 49);
-            }
-            const cipher = btoa(keys.join(','));
-            document.getElementById('cipherOutput').textContent = cipher;
-            document.getElementById('cipherInput').value = cipher;
-        }
-
-        function handleDecrypt() {
-            try {
-                const key = parseInt(document.getElementById('recvKey').value);
-                if (key !== GATEKEEPER_KEY) {
-                    document.getElementById('decryptedOutput').textContent = "🚨 INTRUDER TRAPPED - ACCESS DENIED";
-                    return;
-                }
-                const raw = atob(document.getElementById('cipherInput').value).split(',').map(Number);
-                let chars = raw.map((k, i) => {
-                    let base = Math.floor((k - (i * 365) - 49) / 7);
-                    return REVERSE_BASE_MAP[base] || String.fromCharCode(base);
-                });
-                document.getElementById('decryptedOutput').textContent = chars.join('');
-            } catch(e) {
-                document.getElementById('decryptedOutput').textContent = "INVALID PAYLOAD";
-            }
-        }
-
-        // --- PRIME ENGINE LOGIC ---
-        let generatedPrimes = [];
-        function runPurePrimeEngine() {
-            let startVal = BigInt(document.getElementById('startInput').value.trim() || "10000000000006");
-            let span = parseInt(document.getElementById('spanInput').value) || 10000;
-            generatedPrimes = [];
-            
-            for(let i=0; i<span; i++) {
-                let num = startVal + BigInt(i);
-                if(num % 2n !== 0n && num % 3n !== 0n && num % 5n !== 0n && num % 7n !== 0n) {
-                    generatedPrimes.push(num);
-                    if(generatedPrimes.length >= 200) break;
-                }
-            }
-
-            const grid = document.getElementById('gridOutput');
-            grid.innerHTML = '';
-            generatedPrimes.forEach(p => {
-                const cell = document.createElement('div');
-                cell.className = 'grid-cell';
-                cell.textContent = p.toString();
-                grid.appendChild(cell);
-            });
-            document.getElementById('statsBox').innerHTML = `<strong>Primes Scanned:</strong> Generated ${generatedPrimes.length} candidate prime values.`;
-        }
-
-        function copyPrimesToClipboard() {
-            if(!generatedPrimes.length) return alert("Generate primes first!");
-            navigator.clipboard.writeText(generatedPrimes.join('\n'));
-            alert("Primes copied to clipboard!");
-        }
-
-        // --- GATEKEEPER CHALLENGE LOGIC ---
-        let currentLevel = 0;
-        const LEVELS = [{ passcode: 101 }, { passcode: 512 }, { passcode: 999 }];
-
-        function attemptHack() {
-            const val = parseInt(document.getElementById('passcode-input').value);
-            const term = document.getElementById('terminal');
-            if (val === LEVELS[currentLevel].passcode) {
-                currentLevel++;
-                term.innerHTML += `<div style="color:var(--green)">[SUCCESS]: Level ${currentLevel} breached!</div>`;
-                if(currentLevel < LEVELS.length) {
-                    document.getElementById('level-indicator').textContent = `SECURITY LEVEL ${currentLevel + 1} OF 3`;
-                } else {
-                    document.getElementById('level-indicator').textContent = `SYSTEM FULLY BREACHED`;
-                }
-            } else {
-                term.innerHTML += `<div style="color:var(--danger)">[TRAP]: Invalid Key ${val}. Intruder logged.</div>`;
-            }
-            term.scrollTop = term.scrollHeight;
-        }
-    </script>
-</body>
-</html>
+                <div class="plan-id-text">Plan ID: P-6TF06049H
 
 
 
