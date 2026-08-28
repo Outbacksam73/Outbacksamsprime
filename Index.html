@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Outback Sams | Web Apps & Stash Gear</title>
-    <!-- PayPal SDK Loaded Once globally -->
+    <title>Outback Sams | Web Apps & The True Path to Prime Numbers</title>
+    
+    <!-- PayPal SDK -->
     <script src="https://www.paypal.com/sdk/js?client-id=BAAeY77CGfqgXICKW8wLcqic7TUiJFYi98IvknbmSnzIvAmXa4mrY1gt4ZYTyVg8G_btWNwS_XkGEUMnPU&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+    
     <style>
         :root {
             --bg-color: #0f172a;
@@ -98,6 +100,17 @@
             background: var(--orange);
             color: #fff;
             border-color: var(--orange);
+        }
+
+        .nav-btn.matrix-btn {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .nav-btn.matrix-btn:hover, .nav-btn.matrix-btn.active {
+            background: var(--gold);
+            color: #000;
+            border-color: var(--gold);
         }
 
         /* Container Sections */
@@ -234,7 +247,7 @@
             margin-top: auto;
         }
 
-        /* Stash Belt Specific Card Styling */
+        /* Stash Belt Styling */
         .stash-product-card {
             background: var(--card-bg);
             border: 1px solid var(--orange);
@@ -245,7 +258,7 @@
             gap: 2rem;
             max-width: 900px;
             margin: 0 auto;
-            box-shadow: 0 0 25px rgba(230, 126, 34, 0.1);
+            box-shadow: 0 0 25px rgba(230, 126, 34, 0.15);
         }
 
         @media (min-width: 650px) {
@@ -258,20 +271,45 @@
         .stash-image-box {
             flex: 1;
             background: #090d16;
-            border: 1px dashed var(--border-color);
-            min-height: 260px;
+            border: 1px solid var(--border-color);
+            min-height: 280px;
             border-radius: 8px;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             color: var(--text-sub);
             font-weight: bold;
             text-align: center;
-            padding: 1rem;
+            padding: 1.5rem;
         }
 
-        .stash-details {
-            flex: 1;
+        .stash-details { flex: 1; }
+
+        .preorder-badge {
+            display: inline-block;
+            background: var(--orange);
+            color: #000;
+            font-weight: bold;
+            font-size: 0.8rem;
+            padding: 4px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .preorder-timeline-box {
+            background: #090d16;
+            border-left: 3px solid var(--orange);
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+            font-size: 0.85rem;
+            color: var(--text-sub);
+        }
+
+        .preorder-timeline-box strong {
+            color: var(--orange);
         }
 
         .stash-buy-btn {
@@ -289,16 +327,35 @@
             margin-top: 1rem;
         }
 
-        .stash-buy-btn:hover {
-            background-color: #d35400;
-        }
+        .stash-buy-btn:hover { background-color: #d35400; }
 
         /* Inline Tool Specific Styles */
         .mono { font-family: var(--font-mono); }
         .grid-10 { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; }
         .grid-cell { background: #064e3b; border: 1px solid #22c55e; color: #4ade80; padding: 8px 2px; border-radius: 4px; text-align: center; font-size: 0.7rem; font-weight: bold; word-break: break-all; }
         .terminal-box { background: #030712; border: 1px solid var(--border-color); color: var(--accent-color); padding: 14px; border-radius: 6px; height: 160px; overflow-y: auto; font-size: 0.85rem; font-family: var(--font-mono); }
+
+        /* 7-GRID VISUAL MATRIX STYLING */
+        .no-copy-zone {
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .grid-display { max-height: 600px; overflow-y: scroll; border: 1px solid #475569; padding: 10px; background: #020617; border-radius: 6px; }
+        .legend { display: flex; gap: 15px; margin-bottom: 15px; font-weight: bold; flex-wrap: wrap; justify-content: center; }
+        .legend-box { padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; }
         
+        .grid-row { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-bottom: 4px; text-align: center; }
+        .cell { padding: 8px; border-radius: 4px; font-weight: bold; font-size: 0.9rem; color: #000; }
+
+        .cell-yellow { background-color: #ffff00; color: #000; } /* Prime Candidates */
+        .cell-blue   { background-color: #00a2ed; color: #fff; } /* Multiples of 5 & 7 */
+        .cell-green  { background-color: #22c55e; color: #fff; } /* Root Squares (121+) */
+        .cell-white  { background-color: #ffffff; color: #000; } /* Base Grid (2, 3 multiples) */
+
+        .contact-btn { text-align: center; margin-top: 20px; }
+        .contact-btn button { background: var(--gold); color: #000; border: none; padding: 12px 24px; font-weight: bold; border-radius: 6px; cursor: pointer; font-size: 1rem; }
+
         footer {
             margin-top: auto;
             background: #090d16;
@@ -324,6 +381,7 @@
         </div>
         <div class="nav-links">
             <button class="nav-btn active" onclick="switchSection('sec-factory', event)">App Factory</button>
+            <button class="nav-btn matrix-btn" onclick="switchSection('sec-visual-matrix', event)">📐 7-Grid Matrix</button>
             <button class="nav-btn belt-btn" onclick="switchSection('sec-stash-belt', event)">🎒 Stash Belt Store</button>
             <button class="nav-btn" onclick="switchSection('sec-encrypted-messenger', event)">7-Grid Encryption</button>
             <button class="nav-btn" onclick="switchSection('sec-prime-engine', event)">14-Digit Prime Engine</button>
@@ -435,37 +493,83 @@
         </div>
     </div>
 
-    <!-- SECTION 2: OUTBACK STASH BELT STORE -->
-    <div id="sec-stash-belt" class="page-section">
+    <!-- SECTION 2: THE TRUE PATH TO PRIME NUMBERS (7-GRID VISUAL MATRIX) -->
+    <div id="sec-visual-matrix" class="page-section">
         <header class="factory-header">
-            <h1 style="color: var(--orange);">Outback Stash Belt Store</h1>
-            <p>Keep your cash, keys, and valuables completely secure on the move.</p>
+            <h1 style="color: var(--gold);">Outback Sams: The True Path to Prime Numbers</h1>
+            <p>7-Column Matrix Stream Visualizer</p>
         </header>
 
-        <div class="stash-product-card">
-            <div class="stash-image-box">
-                <!-- Replace with your image file: <img src="stash-belt.jpg" alt="Outback Stash Belt" style="width:100%; border-radius:6px;"> -->
-                <span>[ Outback Stash Belt Photo ]</span>
+        <div style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px;" class="no-copy-zone">
+            <div class="legend">
+                <span class="legend-box cell-yellow">Yellow: Prime Candidates</span>
+                <span class="legend-box cell-blue">Blue: Pattern Multiples (5s & 7s)</span>
+                <span class="legend-box cell-green">Green: Prime Root Squares (121+)</span>
+                <span class="legend-box cell-white">White: Base Grid (2, 3 multiples)</span>
             </div>
-            <div class="stash-details">
-                <h2 style="font-size: 1.8rem; color: var(--text-main); margin-bottom: 0.5rem;">Everyday Travel Stash Belt</h2>
-                <div style="font-size: 1.6rem; color: var(--orange); font-weight: bold; margin-bottom: 1rem;">$29.99</div>
-                
-                <ul class="features-list">
-                    <li>Hidden interior zippered security pocket</li>
-                    <li>Heavy-duty nylon webbing for maximum durability</li>
-                    <li>Non-metallic TSA-friendly buckle</li>
-                    <li>Fully adjustable length for custom fit</li>
-                </ul>
 
-                <a href="YOUR_STASH_BELT_PAYMENT_LINK_HERE" class="stash-buy-btn" target="_blank" rel="noopener noreferrer">
-                    Buy Stash Belt Now ($29.99)
+            <div class="grid-display" id="quad-grid"></div>
+
+            <div class="contact-btn">
+                <a href="mailto:outbacksams@gmail.com?subject=Prime%20Framework%20Learnings%20Inquiry">
+                    <button>Email Outback Sams Directly (outbacksams@gmail.com)</button>
                 </a>
             </div>
         </div>
     </div>
 
-    <!-- SECTION 3: 7-GRID ENCRYPTED MESSENGER -->
+    <!-- SECTION 3: OUTBACK STASH BELT STORE -->
+    <div id="sec-stash-belt" class="page-section">
+        <header class="factory-header">
+            <h1 style="color: var(--orange);">Outback Stash Belt Store</h1>
+            <p>Keep your cash, keys, and secret values secure on the move.</p>
+        </header>
+
+        <div class="stash-product-card">
+            <!-- STASH BELT VECTOR ART DISPLAY -->
+            <div class="stash-image-box">
+                <svg width="220" height="150" viewBox="0 0 220 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Belt Strap Base -->
+                    <rect x="10" y="55" width="200" height="40" rx="4" fill="#1e293b" stroke="#e67e22" stroke-width="2"/>
+                    <!-- Webbing Texture Lines -->
+                    <line x1="20" y1="65" x2="200" y2="65" stroke="#334155" stroke-width="2" stroke-dasharray="4 4"/>
+                    <line x1="20" y1="85" x2="200" y2="85" stroke="#334155" stroke-width="2" stroke-dasharray="4 4"/>
+                    <!-- Hidden Zipper Slot (Pocket) -->
+                    <rect x="55" y="69" width="110" height="12" rx="2" fill="#090d16" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="2 2"/>
+                    <text x="110" y="78" fill="#f59e0b" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">HIDDEN STASH ZIPPER</text>
+                    <!-- Buckle Assembly -->
+                    <rect x="10" y="48" width="30" height="54" rx="6" fill="#0f172a" stroke="#e67e22" stroke-width="3"/>
+                    <rect x="17" y="56" width="16" height="38" rx="2" fill="#38bdf8" opacity="0.8"/>
+                </svg>
+                <span style="margin-top: 10px; font-size: 0.85rem; color: var(--accent-color);">Outback Tactical Security Stash Belt</span>
+            </div>
+
+            <div class="stash-details">
+                <div class="preorder-badge">🔥 Limited Pre-Order Event</div>
+                <h2 style="font-size: 1.8rem; color: var(--text-main); margin-bottom: 0.3rem;">Everyday Travel Stash Belt</h2>
+                <div style="font-size: 1.6rem; color: var(--orange); font-weight: bold; margin-bottom: 0.8rem;">$29.99</div>
+                
+                <div class="preorder-timeline-box">
+                    <div><strong>Pre-Order Starts:</strong> Tomorrow</div>
+                    <div><strong>Window Duration:</strong> Open for 45 Days Only</div>
+                    <div><strong>Delivery Schedule:</strong> Ships 45 to 60 days after pre-order window closes</div>
+                </div>
+
+                <ul class="features-list">
+                    <li>Hidden interior zippered security compartment</li>
+                    <li>Heavy-duty reinforced nylon webbing</li>
+                    <li>TSA-friendly, non-metallic quick release buckle</li>
+                    <li>Fully adjustable fit for all sizes</li>
+                </ul>
+
+                <a href="YOUR_STASH_BELT_PAYMENT_LINK_HERE" class="stash-buy-btn" target="_blank" rel="noopener noreferrer">
+                    Reserve Stash Belt Pre-Order ($29.99)
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 4: 7-GRID ENCRYPTED MESSENGER -->
     <div id="sec-encrypted-messenger" class="page-section">
         <h2 style="color: var(--accent-color); margin-bottom: 16px;">OutbackSams Encrypted Messenger</h2>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
@@ -494,7 +598,7 @@
         </div>
     </div>
 
-    <!-- SECTION 4: 14-DIGIT PURE PRIME ENGINE -->
+    <!-- SECTION 5: 14-DIGIT PURE PRIME ENGINE -->
     <div id="sec-prime-engine" class="page-section">
         <h2 style="color: var(--accent-color); margin-bottom: 8px;">14-Digit Boundary Scanner</h2>
         <p style="color: var(--text-sub); margin-bottom: 16px;">Pure Prime Output & Export Tool</p>
@@ -513,7 +617,7 @@
         <div class="grid-10" id="gridOutput" style="max-height: 350px; overflow-y: auto; background:#0f172a; padding:10px; border-radius:4px;"></div>
     </div>
 
-    <!-- SECTION 5: GATEKEEPER CRYPTANALYSIS CHALLENGE -->
+    <!-- SECTION 6: GATEKEEPER CRYPTANALYSIS CHALLENGE -->
     <div id="sec-cryptanalysis" class="page-section">
         <h2 style="color: var(--accent-color); margin-bottom: 16px;">⚡ Can You Break The Gatekeeper?</h2>
         <div style="background: var(--card-bg); padding: 20px; border-radius: 8px; border: 1px solid var(--border-color);">
@@ -531,11 +635,19 @@
     </div>
 
     <footer>
-        <p>&copy; 2026 <a href="https://outbacksams.com">OutbackSams.com</a>. All rights reserved.</p>
+        <p>&copy; 2026 <a href="https://outbacksams.com">OutbackSams.com</a> | Contact: <a href="mailto:outbacksams@gmail.com">outbacksams@gmail.com</a></p>
     </footer>
 
-    <!-- GLOBAL SCRIPT FOR TAB SWITCHING, PAYPAL INITIALIZATION & TOOLS -->
+    <!-- GLOBAL SCRIPT FOR NAVIGATION, PAYPAL & ALGORITHMS -->
     <script>
+        // Disable right-click & copy shortcuts on 7-Grid visual matrix
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && (e.key === 'c' || e.key === 'C' || e.key === 'u' || e.key === 'U')) {
+                e.preventDefault();
+            }
+        });
+
         function switchSection(secId, evt) {
             document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -543,6 +655,10 @@
             document.getElementById(secId).classList.add('active');
             if (evt && evt.target) {
                 evt.target.classList.add('active');
+            }
+
+            if(secId === 'sec-visual-matrix') {
+                renderVisualGrid();
             }
         }
 
@@ -574,7 +690,46 @@
             handleEncrypt();
         });
 
-        // --- 7-GRID ENGINE LOGIC ---
+        // --- 7-GRID VISUAL MATRIX ENGINE LOGIC ---
+        function isRootSquareComposite(n) {
+            if (n < 121n) return false;
+            const rootPrimes = [11n, 13n, 17n, 19n, 23n, 29n, 31n, 37n, 41n, 43n, 47n, 53n, 59n, 61n, 67n, 71n, 73n, 79n, 83n, 89n, 97n];
+            for (let p of rootPrimes) {
+                if (p * p > n) break;
+                if (n % p === 0n) return true;
+            }
+            return false;
+        }
+
+        function getCellColorClass(num) {
+            if (num === 1n || num === 4n || num === 5n || num === 7n) return "cell-yellow";
+            if (num === 2n || num === 3n || num === 6n) return "cell-white";
+            if (num % 2n === 0n || num % 3n === 0n) return "cell-white";
+            if (num % 5n === 0n || num % 7n === 0n) return "cell-blue";
+            if (isRootSquareComposite(num)) return "cell-green";
+            return "cell-yellow";
+        }
+
+        function renderVisualGrid() {
+            const container = document.getElementById('quad-grid');
+            if(container.children.length > 0) return; // Prevent unnecessary re-renders
+            
+            let html = '';
+            let currentNum = 1n;
+
+            for (let r = 1; r <= 35; r++) {
+                html += `<div class="grid-row">`;
+                for (let c = 1; c <= 7; c++) {
+                    let cellClass = getCellColorClass(currentNum);
+                    html += `<div class="cell ${cellClass}">${currentNum.toString()}</div>`;
+                    currentNum++;
+                }
+                html += `</div>`;
+            }
+            container.innerHTML = html;
+        }
+
+        // --- 7-GRID ENCRYPTION ENGINE LOGIC ---
         const GATEKEEPER_KEY = 258;
         const BASE_MAP = { 'A': 149, 'B': 163, 'C': 101, 'D': 143, 'E': 157, 'H': 151, 'I': 89, 'O': 190, 'P': 204, 'S': 178, 'T': 172, 'W': 154, 'a': 180, 'b': 174, 'c': 168, 'd': 212, 'e': 206, 'g': 194, 'k': 246, 'l': 260, 'm': 240, 'n': 234, 'o': 235, 'r': 216, 's': 210, 't': 254, 'u': 248, 'y': 224, ' ': 100, '.': 105 };
         const REVERSE_BASE_MAP = {};
