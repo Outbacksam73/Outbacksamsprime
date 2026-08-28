@@ -312,22 +312,10 @@
             color: var(--orange);
         }
 
-        .stash-buy-btn {
-            display: block;
+        .paypal-button-container {
             width: 100%;
-            background-color: var(--orange);
-            color: #ffffff;
-            text-align: center;
-            padding: 1rem;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: background 0.2s ease;
             margin-top: 1rem;
         }
-
-        .stash-buy-btn:hover { background-color: #d35400; }
 
         /* Inline Tool Specific Styles */
         .mono { font-family: var(--font-mono); }
@@ -504,7 +492,7 @@
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 30px;">
             
             <!-- TIER 1: VIEW-ONLY ACCESS ($105) -->
-            <div style="background: var(--card-bg); border: 2px solid var(--gold); border-radius: 12px; padding: 24px; text-align: center; display: flex; flex-direction: column;">
+            <div style="background: var(--card-bg); border: 2px solid var(--gold); border-radius: 12px; padding: 24px; text-align: center; display: flex; flex-direction: column; position: relative;">
                 <h3 style="font-size: 1.5rem; color: var(--gold); margin-bottom: 8px;">View-Only Matrix Access</h3>
                 <div style="font-size: 2.2rem; color: var(--green); font-weight: bold; margin-bottom: 12px;">$105.00</div>
                 <p style="color: var(--text-sub); font-size: 0.9rem; margin-bottom: 16px; flex-grow: 1;">
@@ -515,14 +503,12 @@
                     <li>On-screen prime candidate highlights</li>
                     <li>Root square composite detection view</li>
                 </ul>
-                <a href="P-12236200V1552974NKI2VII" class="stash-buy-btn" style="background-color: var(--gold); color: #000;" target="_blank" rel="noopener noreferrer">
-                    Get View-Only Access ($105)
-                </a>
+                <div id="paypal-button-container-P-12236200U5529174FNKI2VJI" class="paypal-button-container"></div>
             </div>
 
             <!-- TIER 2: FULL ACCESS & COPY EXPORT ($500) -->
-            <div style="background: var(--card-bg); border: 2px solid var(--accent-color); border-radius: 12px; padding: 24px; text-align: center; display: flex; flex-direction: column;">
-                <div class="badge-tag" style="background-color: var(--accent-color); color: #000; top: -12px;">Full Pro Access</div>
+            <div style="background: var(--card-bg); border: 2px solid var(--accent-color); border-radius: 12px; padding: 24px; text-align: center; display: flex; flex-direction: column; position: relative;">
+                <div class="badge-tag" style="background-color: var(--accent-color); color: #000;">Full Pro Access</div>
                 <h3 style="font-size: 1.5rem; color: var(--accent-color); margin-bottom: 8px;">Full Access + Copy & Export</h3>
                 <div style="font-size: 2.2rem; color: var(--green); font-weight: bold; margin-bottom: 12px;">$500.00</div>
                 <p style="color: var(--text-sub); font-size: 0.9rem; margin-bottom: 16px; flex-grow: 1;">
@@ -533,10 +519,8 @@
                     <li>Clipboard copy & raw data export</li>
                     <li>Full code & algorithm integration rights</li>
                 </ul>
-                 class="stash-buy-btn" style="background-color: var(--accent-color); color: #000;" target="_blank" rel="noopener noreferrer">
-                    Get Full Copy Access ($500)
-                </a> href="P-IND98963KEF32721ANKI2XII
-            </div>o
+                <div id="paypal-button-container-P-7ND98963XE532721ANKI2XII" class="paypal-button-container"></div>
+            </div>
 
         </div>
 
@@ -603,9 +587,7 @@
                     <li>Fully adjustable fit for all sizes</li>
                 </ul>
 
-                <a href="P-1MS00287PK2484137NKI22NA class="stash-buy-btn" target="_blank" rel="noopener noreferrer">
-                    Reserve Stash Belt Pre-Order ($29.99)
-                </a>
+                <div id="paypal-button-container-P-1MS002878K2484137NKI2ZNA" class="paypal-button-container"></div>
             </div>
         </div>
     </div>
@@ -710,7 +692,10 @@
                 'P-4T457962VP5515642NKHF2RI',
                 'P-6TF06049H2530772CNKHGC5Y',
                 'P-5W661557KD6448334NKHGALI',
-                'P-3KS40531G4307451CNKHGBZQ'
+                'P-3KS40531G4307451CNKHGBZQ',
+                'P-12236200U5529174FNKI2VJI',
+                'P-7ND98963XE532721ANKI2XII',
+                'P-1MS002878K2484137NKI2ZNA'
             ];
 
             planIDs.forEach(planId => {
