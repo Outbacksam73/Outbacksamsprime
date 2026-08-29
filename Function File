@@ -1,0 +1,7 @@
+my-project/
+├── netlify/
+│   └── functions/
+│       └── generate-app.js   <-- (or generate-app.ts)
+├── index.html
+└── netlify.toml
+
