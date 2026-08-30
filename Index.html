@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outback Sams - Full 7-Grid Cryptographic & Gatekeeper Suite</title>
+    <!-- PayPal SDK (Replace YOUR_PAYPAL_CLIENT_ID with your live/sandbox ID) -->
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD"></script>
+    <style>
+        :root {
+            --bg-color: #050811;
+            --card-bg: #0f172a;
+            --card-border: #1e293b;
+            --accent-blue: #38bdf8;
+            --accent-green: #22c55e;
+            --accent-amber: #f59e0b;
+            --accent-red: #ef4444;
+            --accent-purple: #a855f7;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --terminal-bg: #020617;
+            --input-bg: #0b1329;
+            --grid-line: #1e293b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Consolas', 'Courier New', monospace;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            padding: 24px 12px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .main-wrapper {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        /* HEADER SECTION */
+        .brand-header {
+            background-color: var(--card-bg);
+            border: 2px solid var(--accent-blue);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.15);
+        }
+
+        .brand-header h1 {
+            color: var(--accent-blue);
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .brand-header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+        }
+
+        .brand-link {
+            color: var(--accent-green);
+            font-weight: bold;
+            text-decoration: none;
+            border: 1px solid var(--accent-green);
+            padding: 4px 12px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .brand-link:hover {
+            background-color: rgba(34, 197, 94, 0.15);
+            box-shadow: 0 0 10px rgba(34, 197, 94, 0.4);
+        }
+
+        /* CARD CONTAINERS */
+        .suite-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .suite-card.hacker-theme {
+            border-color: var(--accent-green);
+            box-shadow: 0 0 15px rgba(34, 197, 94, 0.1);
+        }
+
+        .suite-card.decoder-theme {
+            border-color: var(--accent-purple);
+        }
+
+        .suite-card h2 {
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--card-border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* FORM ELEMENTS */
+        .form-row {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        label {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="email"],
+        textarea {
+            background-color: var(--input-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            padding: 12px;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            width: 100%;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 8px rgba(56, 189, 248, 0.3);
+        }
+
+        /* BUTTONS */
+        .btn-grid {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        button {
+            background-color: var(--accent-blue);
+            color: #000;
+            font-weight: bold;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+        }
+
+        button:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        button.btn-hacker {
+            background-color: var(--accent-green);
+            color: #000;
+        }
+
+        button.btn-purple {
+            background-color: var(--accent-purple);
+            color: #fff;
+        }
+
+        button.btn-danger {
+            background-color: var(--accent-red);
+            color: #fff;
+        }
+
+        /* TERMINAL & OUTPUT DISPLAY */
+        .console-output {
+            background-color: var(--terminal-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 6px;
+            padding: 14px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.85rem;
+            color: var(--accent-green);
+            max-height: 220px;
+            overflow-y: auto;
+            word-break: break-all;
+            margin-top: 12px;
+            line-height: 1.5;
+        }
+
+        .log-entry { margin-bottom: 4px; }
+        .log-time { color: var(--text-muted); }
+        .log-alert { color: var(--accent-red); font-weight: bold; }
+        .log-warn { color: var(--accent-amber); }
+        .log-success { color: var(--accent-green); font-weight: bold; }
+
+        /* GRID MATRIX DISPLAY TABLE */
+        .matrix-table-wrapper {
+            overflow-x: auto;
+            margin-top: 16px;
+            border: 1px solid var(--card-border);
+            border-radius: 6px;
+        }
+
+        table.matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        table.matrix-table th, table.matrix-table td {
+            border: 1px solid var(--grid-line);
+            padding: 8px;
+        }
+
+        table.matrix-table th {
+            background-color: var(--input-bg);
+            color: var(--accent-blue);
+        }
+
+        table.matrix-table tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        /* PAYPAL TIER CARDS */
+        .paypal-pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin: 16px 0;
+        }
+
+        .price-option {
+            background-color: var(--input-bg);
+            border: 2px solid var(--card-border);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .price-option.selected {
+            border-color: var(--accent-blue);
+            background-color: rgba(56, 189, 248, 0.08);
+        }
+
+        .price-option h3 {
+            font-size: 1.5rem;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .price-option p {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            padding: 16px 0;
+            border-top: 1px solid var(--card-border);
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-wrapper">
+
+    <!-- HEADER BRANDING -->
+    <div class="brand-header">
+        <h1>🔒 OUTBACK SAMS 7-GRID CRYPTO SUITE</h1>
+        <p>Deterministic Matrix Shift Engine & Gatekeeper 258 Security Protocol</p>
+        <a href="https://outbacksams.com" target="_blank" rel="noopener noreferrer" class="brand-link">Visit outbacksams.com</a>
+    </div>
+
+    <!-- SECTION 1: 7-GRID ENCRYPTION ENGINE -->
+    <div class="suite-card">
+        <h2>🔑 1. 7-Grid Shift Encryption Engine</h2>
+        <div class="form-row">
+            <label for="plain-input">Payload Input Text</label>
+            <textarea id="plain-input" rows="3" placeholder="Enter confidential message to generate 7-grid key vectors..."></textarea>
+        </div>
+
+        <div class="btn-grid">
+            <button onclick="executeEncryption()">Generate Key Stream</button>
+            <button class="btn-purple" onclick="renderMatrixTable()">View 7-Grid Matrix Table</button>
+        </div>
+
+        <div id="encrypt-result-wrapper" style="display:none;">
+            <div class="form-row" style="margin-top:16px;">
+                <label>Generated Unique Key Stream (Array Output)</label>
+                <div id="key-stream-output" class="console-output"></div>
+            </div>
+        </div>
+
+        <!-- MATRIX VISUALIZER TABLE -->
+        <div id="matrix-visualizer" style="display:none;" class="matrix-table-wrapper">
+            <table class="matrix-table">
+                <thead>
+                    <tr>
+                        <th>Char</th>
+                        <th>Base Map</th>
+                        <th>Shift Pos</th>
+                        <th>Grid Modifier</th>
+                        <th>Calculated Final Key</th>
+                    </tr>
+                </thead>
+                <tbody id="matrix-table-body">
+                </tbody>
+            </table>
+        </div>
+
+        <!-- PAYPAL PAYMENT UPGRADE -->
+        <hr style="border:0; border-top:1px solid var(--card-border); margin: 24px 0;">
+        <h2>💳 2. Upgrade / Commercial Pass Key Authorization</h2>
+        <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:12px;">Select an operational access tier for live network key processing:</p>
+        
+        <div class="paypal-pricing-grid">
+            <div class="price-option selected" id="opt-14" onclick="selectPricingTier(14.99, 'opt-14')">
+                <h3>$14.99</h3>
+                <p>Standard Key Transmission</p>
+            </div>
+            <div class="price-option" id="opt-20" onclick="selectPricingTier(20.00, 'opt-20')">
+                <h3>$20.00</h3>
+                <p>Priority Matrix Security Pass</p>
+            </div>
+        </div>
+
+        <div id="paypal-button-container" style="max-width: 400px; margin: 0 auto;"></div>
+        <div id="paypal-status-log"></div>
+    </div>
+
+    <!-- SECTION 2: HACKER Cryptanalysis CHALLENGE & GATEKEEPER 258 -->
+    <div class="suite-card hacker-theme">
+        <h2 style="color:var(--accent-green);">⚡ 3. Gatekeeper 258 Hacker Security Trap</h2>
+        <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:14px;">
+            Test your cryptanalysis against the Gatekeeper. Attempting to force the passcode triggers quarantine logging.
+        </p>
+
+        <div class="form-row">
+            <label for="hacker-passcode">Target Passkey Probe</label>
+            <input type="number" id="hacker-passcode" placeholder="Enter candidate key (e.g. 101, 258, 777)...">
+        </div>
+
+        <div class="btn-grid">
+            <button class="btn-hacker" onclick="runHackerChallenge()">Execute Intrusion Test</button>
+            <button class="btn-danger" onclick="clearIntruderLog()">Clear Log Memory</button>
+            <button onclick="exportIntruderLogs()">Export Intruder JSON</button>
+        </div>
+
+        <div style="margin-top:16px;">
+            <label>Real-Time Security Terminal Output</label>
+            <div id="hacker-terminal" class="console-output">
+                <div class="log-entry"><span class="log-time">[SYSTEM INITIALIZED]:</span> Gatekeeper 258 Active. Monitoring inbound probe vectors...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 3: DECRYPTION / VERIFICATION SYSTEM -->
+    <div class="suite-card decoder-theme">
+        <h2 style="color:var(--accent-purple);">🔓 4. 7-Grid Message Decoder & Key Verifier</h2>
+        <div class="form-row">
+            <label for="key-input-stream">Input Key Stream Array (JSON Format)</label>
+            <textarea id="key-input-stream" rows="3" placeholder="Paste array of numbers e.g. [1410, 1520, ...]" ></textarea>
+        </div>
+
+        <div class="btn-grid">
+            <button class="btn-purple" onclick="executeDecryption()">Reconstruct Original Message</button>
+        </div>
+
+        <div id="decrypt-result-wrapper" style="display:none; margin-top:16px;">
+            <label>Decoded Original Text</label>
+            <div id="decoded-output" class="console-output" style="color: var(--accent-blue);"></div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <p>© 2026 <a href="https://outbacksams.com" target="_blank" rel="noopener noreferrer" style="color:var(--accent-blue); text-decoration:none;">outbacksams.com</a> | Powered by 7-Grid Engine & Gatekeeper 258</p>
+    </div>
+
+</div>
+
+<script>
+    // =========================================================================
+    // OUTBACK SAMS 7-GRID CORE ENGINE ALGORITHM
+    // =========================================================================
+    const GATEKEEPER_KEY = 258;
+    let currentSelectedTier = "14.99";
+    let intruderLogDatabase = [];
+    let currentCalculatedMatrix = [];
+
+    const BASE_MAP = {
+        'A': 149, 'B': 163, 'C': 101, 'D': 143, 'E': 157, 'F': 109, 'G': 137, 'H': 151,
+        'I': 89,  'J': 103, 'K': 131, 'L': 83,  'M': 97,  'N': 139, 'O': 190, 'P': 204,
+        'Q': 218, 'R': 184, 'S': 178, 'T': 172, 'U': 166, 'V': 160, 'W': 154, 'X': 198,
+        'Y': 192, 'Z': 186, 'a': 180, 'b': 174, 'c': 168, 'd': 212, 'e': 206, 'f': 200,
+        'g': 194, 'h': 188, 'i': 182, 'j': 232, 'k': 246, 'l': 260, 'm': 240, 'n': 234,
+        'o': 235, 'p': 228, 'q': 222, 'r': 216, 's': 210, 't': 254, 'u': 248, 'v': 242,
+        'w': 236, 'x': 230, 'y': 224, 'z': 274, '1': 295, '2': 330, '3': 324, '4': 318,
+        '5': 312, '6': 306, '7': 300, '8': 294, '9': 316, '10': 344, ' ': 100
+    };
+
+    // Reverse lookup map for decryption engine
+    const REVERSE_BASE_MAP = {};
+    for (let key in BASE_MAP) {
+        REVERSE_BASE_MAP[BASE_MAP[key]] = key;
+    }
+
+    function generate7GridMarks(limit = 365) {
+        let marked = [7];
+        let curr = 7;
+        let pattern = [28, 14];
+        let idx = 0;
+        while (curr < limit) {
+            curr += pattern[idx % 2];
+            if (curr <= limit) marked.push(curr);
+            idx++;
+        }
+        return marked;
+    }
+
+    function generateRowMatrix() {
+        let r7_marks = generate7GridMarks(365);
+        let matrix_stream = [];
+        for (let val of r7_marks) {
+            for (let shift = 0; shift < 7; shift++) {
+                matrix_stream.push((val + shift) * (7 - shift));
+            }
+        }
+        let backfill_stream = [];
+        for (let i = 0; i < matrix_stream.length; i++) {
+            if (i % 4 === 0) backfill_stream.push(matrix_stream[i] + 8);
+        }
+        return matrix_stream.concat(backfill_stream);
+    }
+
+    function generateUniqueKeys(inputText) {
+        let grid_stream = generateRowMatrix();
+        let dynamic_keys = [];
+        currentCalculatedMatrix = [];
+
+        for (let idx = 0; idx < inputText.length; idx++) {
+            let char = inputText[idx];
+            let base_val = BASE_MAP[char] || char.charCodeAt(0);
+            let grid_modifier = grid_stream[idx % grid_stream.length];
+            let char_key = (base_val * 7) + grid_modifier + (idx * 365);
+            
+            dynamic_keys.push(char_key);
+            currentCalculatedMatrix.push({
+                char: char,
+                base_val: base_val,
+                shift_pos: idx,
+                modifier: grid_modifier,
+                final_key: char_key
+            });
+        }
+        return dynamic_keys;
+    }
+
+    function executeEncryption() {
+        const text = document.getElementById('plain-input').value;
+        if (!text) {
+            alert('Please enter text to encrypt.');
+            return;
+        }
+        const keys = generateUniqueKeys(text);
+        document.getElementById('key-stream-output').innerText = JSON.stringify(keys);
+        document.getElementById('encrypt-result-wrapper').style.display = 'block';
+    }
+
+    function renderMatrixTable() {
+        const text = document.getElementById('plain-input').value;
+        if (!text) {
+            alert('Please enter text and generate keys first.');
+            return;
+        }
+        if (currentCalculatedMatrix.length === 0) {
+            generateUniqueKeys(text);
+        }
+
+        const tbody = document.getElementById('matrix-table-body');
+        tbody.innerHTML = '';
+
+        currentCalculatedMatrix.forEach(row => {
+            let tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td style="color:var(--accent-blue); font-weight:bold;">${row.char === ' ' ? '[SPACE]' : row.char}</td>
+                <td>${row.base_val}</td>
+                <td>${row.shift_pos}</td>
+                <td>${row.modifier}</td>
+                <td style="color:var(--accent-green); font-weight:bold;">${row.final_key}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+        document.getElementById('matrix-visualizer').style.display = 'block';
+    }
+
+    // =========================================================================
+    // DECRYPTION ENGINE
+    // =========================================================================
+    function executeDecryption() {
+        const rawInput = document.getElementById('key-input-stream').value;
+        if (!rawInput) {
+            alert('Please paste a key array stream.');
+            return;
+        }
+
+        try {
+            const keyStream = JSON.parse(rawInput);
+            if (!Array.isArray(keyStream)) {
+                throw new Error("Input must be a valid JSON array.");
+            }
+
+            let grid_stream = generateRowMatrix();
+            let decodedText = "";
+
+            for (let idx = 0; idx < keyStream.length; idx++) {
+                let char_key = keyStream[idx];
+                let grid_modifier = grid_stream[idx % grid_stream.length];
+                
+                // Inverse operation of: char_key = (base_val * 7) + grid_modifier + (idx * 365)
+                let base_val = (char_key - grid_modifier - (idx * 365)) / 7;
+                
+                let foundChar = REVERSE_BASE_MAP[base_val];
+                if (foundChar) {
+                    decodedText += foundChar;
+                } else {
+                    decodedText += String.fromCharCode(base_val);
+                }
+            }
+
+            document.getElementById('decoded-output').innerText = decodedText;
+            document.getElementById('decrypt-result-wrapper').style.display = 'block';
+
+        } catch (err) {
+            alert("Error parsing key stream: " + err.message);
+        }
+    }
+
+    // =========================================================================
+    // GATEKEEPER 258 & HACKER CHALLENGE LOGIC
+    // =========================================================================
+    function writeTerminalLog(message, type = 'info') {
+        const terminal = document.getElementById('hacker-terminal');
+        const entry = document.createElement('div');
+        entry.className = 'log-entry';
+        
+        const timestamp = new Date().toLocaleTimeString();
+        let formattedMsg = `<span class="log-time">[${timestamp}]:</span> `;
+
+        if (type === 'alert') {
+            formattedMsg += `<span class="log-alert">${message}</span>`;
+        } else if (type === 'warn') {
+            formattedMsg += `<span class="log-warn">${message}</span>`;
+        } else if (type === 'success') {
+            formattedMsg += `<span class="log-success">${message}</span>`;
+        } else {
+            formattedMsg += message;
+        }
+
+        entry.innerHTML = formattedMsg;
+        terminal.appendChild(entry);
+        terminal.scrollTop = terminal.scrollHeight;
+    }
+
+    function runHackerChallenge() {
+        const passval = parseInt(document.getElementById('hacker-passcode').value);
+        if (isNaN(passval)) {
+            writeTerminalLog("ERROR: Empty passkey attempt vector.", 'warn');
+            return;
+        }
+
+        writeTerminalLog(`Initiating probe on Gatekeeper 258 with passkey: ${passval}...`, 'info');
+
+        if (passval === GATEKEEPER_KEY) {
+            writeTerminalLog("ACCESS GRANTED: Gatekeeper 258 unlocked! Security override successful.", 'success');
+        } else {
+            let record = {
+                id: intruderLogDatabase.length + 1,
+                timestamp: new Date().toISOString(),
+                attempted_key: passval,
+                status: "QUARANTINED_258"
+            };
+            intruderLogDatabase.push(record);
+
+            writeTerminalLog(`🚨 ALERT: INTRUDER TRAPPED BY GATEKEEPER 258! Key ${passval} quarantined.`, 'alert');
+        }
+    }
+
+    function clearIntruderLog() {
+        intruderLogDatabase = [];
+        const terminal = document.getElementById('hacker-terminal');
+        terminal.innerHTML = '<div class="log-entry"><span class="log-time">[' + new Date().toLocaleTimeString() + ']:</span> Log cleared. Monitoring reset...</div>';
+    }
+
+    function exportIntruderLogs() {
+        if (intruderLogDatabase.length === 0) {
+            alert("No intruder records in memory to export.");
+            return;
+        }
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(intruderLogDatabase, null, 2));
+        const downloadAnchor = document.createElement('a');
+        downloadAnchor.setAttribute("href", dataStr);
+        downloadAnchor.setAttribute("download", "intruder_logs_gatekeeper258.json");
+        document.body.appendChild(downloadAnchor);
+        downloadAnchor.click();
+        downloadAnchor.remove();
+    }
+
+    // =========================================================================
+    // PAYPAL PAYMENT TIER CONTROLLER
+    // =========================================================================
+    function selectPricingTier(amount, elementId) {
+        currentSelectedTier = amount.toFixed(2);
+        document.querySelectorAll('.price-option').forEach(el => el.classList.remove('selected'));
+        document.getElementById(elementId).classList.add('selected');
+        renderPayPalContainer();
+    }
+
+    function renderPayPalContainer() {
+        const container = document.getElementById('paypal-button-container');
+        container.innerHTML = '';
+
+        if (typeof paypal === "undefined") {
+            container.innerHTML = "<p style='color:var(--text-muted); text-align:center; font-size:0.8rem; padding:10px;'>PayPal SDK script loaded. Supply your Client ID to activate buttons.</p>";
+            return;
+        }
+
+        paypal.Buttons({
+            style: { layout: 'vertical', color: 'blue', shape: 'rect', label: 'paypal' },
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: { value: currentSelectedTier },
+                        description: `Outback Sams 7-Grid Pass ($${currentSelectedTier})`
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    document.getElementById('paypal-status-log').innerHTML = `
+                        <p style="color:var(--accent-green); text-align:center; margin-top:12px; font-weight:bold;">
+                            Payment of $${currentSelectedTier} confirmed for ${details.payer.name.given_name}!
+                        </p>
+                    `;
+                });
+            }
+        }).render('#paypal-button-container');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        renderPayPalContainer();
+    });
+</script>
+
+</body>
+</html>
