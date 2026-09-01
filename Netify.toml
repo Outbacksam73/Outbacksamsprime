@@ -1,0 +1,8 @@
+[build]
+  functions = "netlify/functions"
+
+# Optional: If using single-page app rewrites, make sure /.netlify/functions/ is exempt
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
