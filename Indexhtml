@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outback Sams 7-Grid Encryption & Security Challenge</title>
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD"></script>
+    <style>
+        :root {
+            --bg-color: #090d16;
+            --card-bg: #111827;
+            --accent: #0ea5e9;
+            --hacker-green: #22c55e;
+            --danger: #ef4444;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #1f2937;
+            --terminal-bg: #030712;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 850px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 16px;
+        }
+
+        .header h1 {
+            color: var(--accent);
+            margin: 0 0 8px 0;
+        }
+
+        .site-link {
+            color: var(--hacker-green);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .site-link:hover {
+            text-decoration: underline;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 1.2rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        label {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        input, textarea {
+            background-color: var(--terminal-bg);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 10px;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: var(--accent);
+            color: #fff;
+            font-weight: bold;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        button.hacker-btn {
+            background-color: var(--hacker-green);
+            color: #000;
+        }
+
+        button.danger-btn {
+            background-color: var(--danger);
+            color: #fff;
+        }
+
+        .output-box {
+            background-color: var(--terminal-bg);
+            border: 1px dashed var(--border);
+            padding: 12px;
+            border-radius: 4px;
+            word-break: break-all;
+            font-size: 0.85rem;
+            margin-top: 6px;
+        }
+
+        .pricing-options {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .price-card {
+            flex: 1;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            padding: 12px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .price-card.active {
+            border-color: var(--accent);
+            background-color: rgba(14, 165, 233, 0.1);
+        }
+
+        .terminal-box {
+            background-color: var(--terminal-bg);
+            border: 1px solid var(--border);
+            color: var(--hacker-green);
+            padding: 12px;
+            border-radius: 4px;
+            height: 160px;
+            overflow-y: auto;
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .log-alert { color: var(--danger); font-weight: bold; }
+        .log-success { color: var(--hacker-green); }
+
+        .footer {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>🔒 OUTBACK SAMS 7-GRID ENGINE</h1>
+        <p style="color: var(--text-muted); margin: 0 0 6px 0;">Dynamic Shift Encryption & Intruder Gatekeeper</p>
+        <p style="margin: 0;">Official Site: <a class="site-link" href="https://outbacksams.com" target="_blank" rel="noopener noreferrer">outbacksams.com</a></p>
+    </div>
+
+    <!-- SECTION 1: ENCRYPTED MESSAGE SERVICE & DIRECT ENCRYPTION ENGINE -->
+    <div class="card">
+        <h2>1. Send Encrypted Message Service</h2>
+        <div class="form-group">
+            <label for="sender-email">Your Email</label>
+            <input type="email" id="sender-email" placeholder="you@example.com">
+        </div>
+        <div class="form-group">
+            <label for="recipient-email">Recipient Email</label>
+            <input type="email" id="recipient-email" placeholder="recipient@example.com">
+        </div>
+        <div class="form-group">
+            <label for="live-message">Confidential Message Payload</label>
+            <textarea id="live-message" placeholder="Type secret message..."></textarea>
+        </div>
+
+        <!-- DIRECT ENCRYPTION CONTROL -->
+        <div class="btn-group">
+            <button onclick="runDirectEncryption()">Encrypt Message Stream</button>
+        </div>
+
+        <div id="direct-encrypt-container" style="display:none; margin-bottom: 16px;">
+            <label>Generated 7-Grid Key Stream (Live Output):</label>
+            <div id="direct-key-stream" class="output-box"></div>
+        </div>
+
+        <label>Select Service Tier:</label>
+        <div class="pricing-options">
+            <div class="price-card active" id="tier-14" onclick="selectTier(14.99, 'tier-14')">
+                <h3 style="margin:0;">$14.99</h3>
+                <span style="font-size:0.75rem; color:var(--text-muted);">Standard Shift</span>
+            </div>
+            <div class="price-card" id="tier-20" onclick="selectTier(20.00, 'tier-20')">
+                <h3 style="margin:0;">$20.00</h3>
+                <span style="font-size:0.75rem; color:var(--text-muted);">Priority Matrix Log</span>
+            </div>
+        </div>
+        <div id="paypal-button-container"></div>
+        <div id="payment-status"></div>
+    </div>
+
+    <!-- SECTION 2: HACKER CRYPTANALYSIS CHALLENGE & DECODER SUITE -->
+    <div class="card" style="border-color: var(--hacker-green);">
+        <h2 style="color: var(--hacker-green);">⚡ 2. Hacker Cryptanalysis Challenge & Decoder</h2>
+        <p style="color: var(--text-muted); font-size: 0.85rem;">
+            Attempt to crack Gatekeeper 258, guess valid key values, or decode trapped key streams.
+        </p>
+
+        <div class="form-group">
+            <label for="hacker-passcode">Attempt Gatekeeper Passcode Key:</label>
+            <input type="number" id="hacker-passcode" placeholder="Enter key attempt (e.g. 101, 258, 999)...">
+        </div>
+
+        <div class="btn-group">
+            <button class="hacker-btn" onclick="executeHackerAttack()">Execute Hack Vector</button>
+            <button class="danger-btn" onclick="clearIntruderLogs()">Clear Intruders</button>
+        </div>
+
+        <div style="margin-top: 14px;">
+            <label>Gatekeeper Security Console Output:</label>
+            <div id="hacker-terminal" class="terminal-box">
+                <div>[SYSTEM]: Security challenge active. Gatekeeper monitoring attempts...</div>
+            </div>
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid var(--border); margin: 20px 0;">
+
+        <!-- REVERSE KEY STREAM DECODER -->
+        <div class="form-group">
+            <label for="decode-input-stream">Key Stream Verification & Decoding (JSON Array):</label>
+            <textarea id="decode-input-stream" rows="2" placeholder="Paste array of key numbers, e.g. [1410, 1520, ...]"></textarea>
+        </div>
+        
+        <div class="btn-group">
+            <button class="hacker-btn" onclick="executeKeyDecode()">Decode Message Stream</button>
+        </div>
+
+        <div id="decode-output-container" style="display:none; margin-top: 10px;">
+            <label>Decrypted Text Payload:</label>
+            <div id="decoded-message-text" class="output-box" style="color: var(--hacker-green);"></div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>© 2026 <a class="site-link" href="https://outbacksams.com" target="_blank" rel="noopener noreferrer">outbacksams.com</a> | Powered by 7-Grid Shift Engine</p>
+    </div>
+</div>
+
+<script>
+    // =========================================================================
+    // OUTBACK SAMS CORE ENGINE LOGIC
+    // =========================================================================
+    const GATEKEEPER_KEY = 258;
+    let selectedAmount = "14.99";
+    let trappedIntruders = [];
+
+    const BASE_MAP = {
+        'A': 149, 'B': 163, 'C': 101, 'D': 143, 'E': 157, 'F': 109, 'G': 137, 'H': 151,
+        'I': 89,  'J': 103, 'K': 131, 'L': 83,  'M': 97,  'N': 139, 'O': 190, 'P': 204,
+        'Q': 218, 'R': 184, 'S': 178, 'T': 172, 'U': 166, 'V': 160, 'W': 154, 'X': 198,
+        'Y': 192, 'Z': 186, 'a': 180, 'b': 174, 'c': 168, 'd': 212, 'e': 206, 'f': 200,
+        'g': 194, 'h': 188, 'i': 182, 'j': 232, 'k': 246, 'l': 260, 'm': 240, 'n': 234,
+        'o': 235, 'p': 228, 'q': 222, 'r': 216, 's': 210, 't': 254, 'u': 248, 'v': 242,
+        'w': 236, 'x': 230, 'y': 224, 'z': 274, '1': 295, '2': 330, '3': 324, '4': 318,
+        '5': 312, '6': 306, '7': 300, '8': 294, '9': 316, '10': 344, ' ': 100
+    };
+
+    const REVERSE_BASE_MAP = {};
+    for (let char in BASE_MAP) {
+        REVERSE_BASE_MAP[BASE_MAP[char]] = char;
+    }
+
+    function generate7GridMarks(limit = 365) {
+        let marked = [7];
+        let curr = 7;
+        let pattern = [28, 14];
+        let idx = 0;
+        while (curr < limit) {
+            curr += pattern[idx % 2];
+            if (curr <= limit) marked.push(curr);
+            idx++;
+        }
+        return marked;
+    }
+
+    function generateRowMatrix() {
+        let r7_marks = generate7GridMarks(365);
+        let matrix_stream = [];
+        for (let val of r7_marks) {
+            for (let shift = 0; shift < 7; shift++) {
+                matrix_stream.push((val + shift) * (7 - shift));
+            }
+        }
+        let backfill_stream = [];
+        for (let i = 0; i < matrix_stream.length; i++) {
+            if (i % 4 === 0) backfill_stream.push(matrix_stream[i] + 8);
+        }
+        return matrix_stream.concat(backfill_stream);
+    }
+
+    function generateUniqueKeys(inputText) {
+        let grid_stream = generateRowMatrix();
+        let dynamic_keys = [];
+        for (let idx = 0; idx < inputText.length; idx++) {
+            let char = inputText[idx];
+            let base_val = BASE_MAP[char] || char.charCodeAt(0);
+            let grid_modifier = grid_stream[idx % grid_stream.length];
+            let char_key = (base_val * 7) + grid_modifier + (idx * 365);
+            dynamic_keys.push(char_key);
+        }
+        return dynamic_keys;
+    }
+
+    function runDirectEncryption() {
+        const msg = document.getElementById('live-message').value;
+        if (!msg) {
+            alert('Please enter a message payload to encrypt.');
+            return;
+        }
+        const keys = generateUniqueKeys(msg);
+        document.getElementById('direct-key-stream').innerText = JSON.stringify(keys);
+        document.getElementById('direct-encrypt-container').style.display = 'block';
+    }
+
+    // =========================================================================
+    // HACKER CHALLENGE & INTRUDER TRAP LOGIC
+    // =========================================================================
+    function logHackerTerminal(msg, isAlert = false, isSuccess = false) {
+        const term = document.getElementById('hacker-terminal');
+        const entry = document.createElement('div');
+        if (isAlert) entry.className = 'log-alert';
+        if (isSuccess) entry.className = 'log-success';
+        entry.innerText = `[${new Date().toLocaleTimeString()}] ${msg}`;
+        term.appendChild(entry);
+        term.scrollTop = term.scrollHeight;
+    }
+
+    function executeHackerAttack() {
+        const attemptedKey = parseInt(document.getElementById('hacker-passcode').value);
+        if (isNaN(attemptedKey)) {
+            logHackerTerminal("ERROR: Key vector empty. Input a numeric passkey attempt.", true);
+            return;
+        }
+
+        logHackerTerminal(`Probing Gatekeeper with Key Vector: ${attemptedKey}...`);
+
+        if (attemptedKey === GATEKEEPER_KEY) {
+            logHackerTerminal("SUCCESS: Gatekeeper 258 Access Granted!", false, true);
+            logHackerTerminal("Matrix Keys Output Generated: [Valid Execution]", false, true);
+        } else {
+            let record = {
+                timestamp: new Date().toISOString(),
+                failed_key: attemptedKey,
+                status: "TRAPPED_258"
+            };
+            trappedIntruders.push(record);
+
+            logHackerTerminal(`🚨 ALERT: HACKER DETECTED & TRAPPED IN GATEKEEPER 258 🚨`, true);
+            logHackerTerminal(`[GATEKEEPER 258]: Key ${attemptedKey} quarantined. Intruder logged.`, true);
+        }
+    }
+
+    function clearIntruderLogs() {
+        trappedIntruders = [];
+        const term = document.getElementById('hacker-terminal');
+        term.innerHTML = '<div>[' + new Date().toLocaleTimeString() + '] Logs cleared. Gatekeeper monitoring attempts...</div>';
+    }
+
+    function executeKeyDecode() {
+        const rawInput = document.getElementById('decode-input-stream').value;
+        if (!rawInput) {
+            alert('Please enter a JSON key array to decode.');
+            return;
+        }
+
+        try {
+            const keys = JSON.parse(rawInput);
+            let grid_stream = generateRowMatrix();
+            let decoded = "";
+
+            for (let idx = 0; idx < keys.length; idx++) {
+                let char_key = keys[idx];
+                let grid_modifier = grid_stream[idx % grid_stream.length];
+                let base_val = (char_key - grid_modifier - (idx * 365)) / 7;
+
+                let char = REVERSE_BASE_MAP[base_val] || String.fromCharCode(base_val);
+                decoded += char;
+            }
+
+            document.getElementById('decoded-message-text').innerText = decoded;
+            document.getElementById('decode-output-container').style.display = 'block';
+
+        } catch (e) {
+            alert('Invalid array format. Enter a valid JSON array like [1410, 1520].');
+        }
+    }
+
+    // =========================================================================
+    // PAYPAL INTEGRATION & PAYMENT SELECTION
+    // =========================================================================
+    function selectTier(amount, cardId) {
+        selectedAmount = amount.toFixed(2);
+        document.querySelectorAll('.price-card').forEach(c => c.classList.remove('active'));
+        document.getElementById(cardId).classList.add('active');
+        renderPayPalButton();
+    }
+
+    function renderPayPalButton() {
+        const container = document.getElementById('paypal-button-container');
+        container.innerHTML = '';
+
+        if (typeof paypal === "undefined") {
+            container.innerHTML = "<p style='color: var(--text-muted); font-size:0.8rem;'>PayPal SDK disabled. Replace YOUR_PAYPAL_CLIENT_ID to enable payments.</p>";
+            return;
+        }
+
+        paypal.Buttons({
+            style: { layout: 'vertical', color: 'blue', shape: 'rect', label: 'paypal' },
+            createOrder: function(data, actions) {
+                const msg = document.getElementById('live-message').value;
+                const recipient = document.getElementById('recipient-email').value;
+                if (!msg || !recipient) {
+                    alert("Please fill in recipient email and message payload.");
+                    return actions.reject();
+                }
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: { value: selectedAmount },
+                        description: `7-Grid Encrypted Transmission ($${selectedAmount})`
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    const msg = document.getElementById('live-message').value;
+                    const generatedKeys = generateUniqueKeys(msg);
+                    
+                    document.getElementById('payment-status').innerHTML = `
+                        <p style="color:var(--hacker-green); font-weight:bold;">Payment Verified ($${selectedAmount})!</p>
+                        <p><strong>Message Key Stream Generated:</strong></p>
+                        <div class="output-box">${JSON.stringify(generatedKeys)}</div>
+                    `;
+                });
+            }
+        }).render('#paypal-button-container');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => { renderPayPalButton(); });
+</script>
+
+</body>
+</html>
